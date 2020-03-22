@@ -11,6 +11,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node loader.js",
+    "start-dev": "export $(cat .env | xargs) && node loader.js",
     "lint": "eslint --cache ./nodebb .",
     "pretest": "npm run lint",
     "test": "nyc --reporter=html --reporter=text-summary mocha",
@@ -83,6 +84,8 @@
     "nodebb-plugin-dbsearch": "4.0.7",
     "nodebb-plugin-emoji": "^3.0.0",
     "nodebb-plugin-emoji-android": "2.0.0",
+    "nodebb-plugin-emoji-extended": "1.1.1+1238",
+    "nodebb-plugin-emoji-one": "1.2.1+119",
     "nodebb-plugin-markdown": "8.11.2",
     "nodebb-plugin-mentions": "2.7.4",
     "nodebb-plugin-soundpack-default": "1.0.0",
@@ -128,9 +131,7 @@
     "winston": "3.2.1",
     "xml": "^1.0.1",
     "xregexp": "^4.1.1",
-    "zxcvbn": "^4.4.2",
-    "nodebb-plugin-emoji-extended": "1.1.1+1238",
-    "nodebb-plugin-emoji-one": "1.2.1+119"
+    "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
     "@commitlint/cli": "8.3.5",
