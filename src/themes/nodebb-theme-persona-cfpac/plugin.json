@@ -9,6 +9,9 @@
 		{ "hook": "filter:admin.header.build", "method": "addAdminNavigation" },
 		{ "hook": "filter:topic.build", "method": "addUserToTopic" }
 	],
+	"staticDirs": {
+		"assets": "public/assets"
+	},
 	"scripts": [
 		"lib/persona.js",
 		"lib/modules/nprogress.js",

@@ -74,6 +74,7 @@
 
 			url = [config.relative_path, url].join('/');
 			var fallback;
+			console.log('config.relative_path', config.relative_path);
 
 			$('#main-menu li').removeClass('active');
 			$('#main-menu a').removeClass('active').filter('[href="' + url + '"]').each(function () {
