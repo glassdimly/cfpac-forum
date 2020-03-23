@@ -68,8 +68,9 @@ test/files/normalise-resized.jpg
 package-lock.json
 /package.json
 
-# ignore scripts. @TODO move bash vars into .env
-scripts/
+# ignore some scripts. @TODO move bash vars into .env
+scripts/backup.sh
+scripts/import-fresh-from-remote.sh
 
 # ignore backups dir used by scripts
 backups-fresh/

@@ -93,6 +93,7 @@
     "nodebb-rewards-essentials": "0.1.2",
     "nodebb-theme-lavender": "5.0.11",
     "nodebb-theme-persona": "10.1.36",
+    "nodebb-theme-persona-cfpac": "file:.yalc/nodebb-theme-persona-cfpac",
     "nodebb-theme-slick": "1.2.29",
     "nodebb-theme-vanilla": "11.1.16",
     "nodebb-widget-essentials": "4.1.0",
@@ -131,6 +132,7 @@
     "winston": "3.2.1",
     "xml": "^1.0.1",
     "xregexp": "^4.1.1",
+    "yalc": "^1.0.0-pre.35",
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {

@@ -19,3 +19,6 @@ logs/
 .eslintrc
 test/files
 *.min.js
+.yalc/nodebb-theme-persona-cfpac/lib
+src/themes/nodebb-theme-persona-cfpac/lib
+src/themes/nodebb-theme-persona-cfpac/library.js
