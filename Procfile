@@ -1,1 +1,1 @@
-web: ./scripts/yarn-link-theme.sh && node loader.js --no-daemon
+web: ./scripts/yarn-link-and-yalc-publish-theme.sh && node loader.js --no-daemon

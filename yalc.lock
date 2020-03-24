@@ -1,0 +1,10 @@
+{
+  "version": "v1",
+  "packages": {
+    "nodebb-theme-persona-cfpac": {
+      "signature": "cce4c9a868d3ae0b072921256b27e540",
+      "file": true,
+      "replaced": "10.1.36"
+    }
+  }
+}
