@@ -41,65 +41,55 @@
      </span>
     </span>
 
-					<span class="Header-nav-item Header-nav-item--folder">
-     <a href="https://www.chicagofoodpolicy.com/connect" class="Header-nav-folder-title" data-controller="HeaderNavFolderTouch" data-controllers-bound="HeaderNavFolderTouch">Connect</a>
-     <span class="Header-nav-folder">
-       <a href="https://www.chicagofoodpolicy.com/contact" class="Header-nav-folder-item">Connect With Us</a>
-       <a href="https://www.chicagofoodpolicy.com/speakingandtraining-overview" class="Header-nav-folder-item">Public Speaking &amp; Training</a>
-     </span>
-   </span>
+			<span class="Header-nav-item Header-nav-item--folder">
+			 <a href="https://www.chicagofoodpolicy.com/connect" class="Header-nav-folder-title" data-controller="HeaderNavFolderTouch" data-controllers-bound="HeaderNavFolderTouch">Connect</a>
+			 <span class="Header-nav-folder">
+				 <a href="https://www.chicagofoodpolicy.com/contact" class="Header-nav-folder-item">Connect With Us</a>
+				 <a href="https://www.chicagofoodpolicy.com/speakingandtraining-overview" class="Header-nav-folder-item">Public Speaking &amp; Training</a>
+			 </span>
+		 </span>
+			<a href="https://chicagofoodpolicy.z2systems.com/donation.jsp?campaign=1&amp;" class="Header-nav-folder-title" data-controller="HeaderNavFolderTouch" data-controllers-bound="HeaderNavFolderTouch">Donate</a>
+
 				</div>
 			</nav>
 			<a href="https://www.chicagofoodpolicy.com/" class="Header-branding" data-nc-element="branding" data-content-field="site-title">
 				<img src="//static1.squarespace.com/static/5a8c555751a5846fc4c22984/t/5b94928cc2241b0779113936/1584495272576/?format=1500w" alt="Chicago Food Policy Action Council" class="Header-branding-logo">
 			</a>
-			<nav class="Header-nav Header-nav--secondary" data-nc-element="secondary-nav" data-content-field="navigation">
-				<div class="Header-nav-inner">
-					<a href="https://chicagofoodpolicy.z2systems.com/donation.jsp?campaign=1&amp;" target="_blank" class="Header-nav-item">Donate</a>
-				</div>
-			</nav>
 		</div>
 		<div data-nc-container="top-center">
 		</div>
 		<div data-nc-container="top-right">
-			<div class="Header-search" data-nc-element="search">
-				<a href="https://www.chicagofoodpolicy.com/search">
-					<svg class="Icon Icon--search--small" viewBox="0 0 15 15">
-						<use xlink:href="#search-icon--small"></use>
-					</svg>
-				</a>
-			</div>
 			<div class="Header-social" data-nc-element="social">
 				<nav class="SocialLinks" data-content-field="connected-accounts">
 					<div class="SocialLinks-inner">
 						<a href="https://www.linkedin.com/company/cfpac/" target="_blank" class="SocialLinks-link linkedin" style="">
-							<div>
 								<svg class="SocialLinks-link-svg" viewBox="0 0 64 64">
 									<use class="SocialLinks-link-icon" xlink:href="#linkedin-icon">
 									</use>
 								</svg>
-							</div>
 						</a>
 						<a href="http://www.facebook.com/chifoodpolicy" target="_blank" class="SocialLinks-link facebook" style="">
-							<div>
 								<svg class="SocialLinks-link-svg" viewBox="0 0 64 64">
 									<use class="SocialLinks-link-icon" xlink:href="#facebook-icon"></use>
 								</svg>
-							</div>
 						</a>
 						<a href="https://twitter.com/ChiFoodPolicy" target="_blank" class="SocialLinks-link twitter" style="">
-							<div>
 								<svg class="SocialLinks-link-svg" viewBox="0 0 64 64">
 									<use class="SocialLinks-link-icon" xlink:href="#twitter-icon"></use>
 								</svg>
-							</div>
 						</a>
 						<a href="https://www.instagram.com/chifoodpolicy/" target="_blank" class="SocialLinks-link instagram" style="">
-							<div>
 								<svg class="SocialLinks-link-svg" viewBox="0 0 64 64">
 									<use class="SocialLinks-link-icon" xlink:href="#instagram-icon"></use>
 								</svg>
-							</div>
+						</a>
+					</div>
+					<div class="Header-search" data-nc-element="search">
+						<a href="https://www.chicagofoodpolicy.com/search">
+							<svg class="search-link-svg" viewBox="0 0 64 64">
+								<use class="search-link-icon" xlink:href="#search-icon">
+								</use>
+							</svg>
 						</a>
 					</div>
 				</nav>
