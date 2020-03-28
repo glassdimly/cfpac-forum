@@ -7,6 +7,10 @@
 	{{{each linkTags}}}{function.buildLinkTag}{{{end}}}
 
 	<script>
+		// @TODO do this properly
+		if (window.location.href.startsWith('http://') && !window.location.href.startsWith('http://localhost')) {
+			window.location.replace(window.location.href.replace('http://', 'https://'))
+		}
 		var RELATIVE_PATH = "{relative_path}";
 		var config = JSON.parse('{{configJSON}}');
 		var app = {
