@@ -91,6 +91,7 @@
     "nodebb-plugin-markdown": "8.11.2",
     "nodebb-plugin-mentions": "2.7.4",
     "nodebb-plugin-question-and-answer": "^0.6.5",
+    "nodebb-plugin-s3-uploads-updated": "^0.3.15",
     "nodebb-plugin-soundpack-default": "1.0.0",
     "nodebb-plugin-spam-be-gone": "0.6.7",
     "nodebb-plugin-sso-facebook": "^3.5.1",
