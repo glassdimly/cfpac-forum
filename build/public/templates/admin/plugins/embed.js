@@ -1,0 +1,1 @@
+!function(e){"object"==typeof module&&module.exports?module.exports=e():"function"==typeof define&&define.amd&&define(e)}(function(){return function(e,n,i,d,o){return'<link href="../../plugins/nodebb-plugin-ns-embed/css/acp.css" rel="stylesheet"/>\n<div id="acpEmbedContainer" class="plugin-embed"></div>'}});

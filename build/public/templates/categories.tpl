@@ -24,7 +24,7 @@
 </div>
 <div class="row">
 	<div class="<!-- IF widgets.sidebar.length -->col-lg-9 col-sm-12<!-- ELSE -->col-lg-12<!-- ENDIF widgets.sidebar.length -->">
-		<h1 class="categories-title">[[pages:categories]]</h1>
+		<h1 class="categories-title">Chicago COVID-19 Food Forum</h1>
 		<ul class="categories" itemscope itemtype="http://www.schema.org/ItemList">
 			{{{each categories}}}
 			<li component="categories/category" data-cid="{../cid}" data-numRecentReplies="1" class="row clearfix">
