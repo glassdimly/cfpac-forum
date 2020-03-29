@@ -28,7 +28,7 @@
 				</div>
 			</div>
 
-			<div id="nav-dropdown" class="hidden-xs">
+			<div id="nav-dropdown" class="hidden-xs container">
 				<!-- IF !maintenanceHeader -->
 				<!-- IF config.loggedIn -->
 
