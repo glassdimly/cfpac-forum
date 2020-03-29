@@ -31,9 +31,6 @@
 
 <body class="{bodyClass} skin-<!-- IF bootswatchSkin -->{bootswatchSkin}<!-- ELSE -->noskin<!-- END -->">
 <div><a href="{config.relative_path}">{{config.relative_path}}</a></div>
-	<div template-variable="CFPAC">
-	<!-- IMPORT cfpac/header.tpl -->
-	</div>
 	<nav id="menu" class="slideout-menu hidden">
 		<!-- IMPORT partials/slideout-menu.tpl -->
 	</nav>

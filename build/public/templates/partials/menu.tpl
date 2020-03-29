@@ -1,11 +1,7 @@
-			<div class="navbar-header">
+			<span class="navbar-header">
 				<button type="button" class="navbar-toggle pull-left" id="mobile-menu">
 					<span component="notifications/icon" class="notification-icon fa fa-fw fa-bell-o unread-count" data-content="{unreadCount.notification}"></span>
 					<i class="fa fa-lg fa-fw fa-bars"></i>
-				</button>
-				<button type="button" class="navbar-toggle hidden" id="mobile-chats">
-					<span component="chat/icon" class="notification-icon fa fa-fw fa-comments unread-count" data-content="{unreadCount.chat}"></span>
-					<i class="fa fa-lg fa-comment-o"></i>
 				</button>
 
 				<!-- IF brand:logo -->
@@ -17,8 +13,16 @@
 				<a href="<!-- IF title:url -->{title:url}<!-- ELSE -->{relative_path}/<!-- ENDIF title:url -->">
 					<h1 class="navbar-brand forum-title">{config.siteTitle}</h1>
 				</a>
+				<span class="forum-title-subtext">a project of</span>
+				<a href="https://www.chicagofoodpolicy.com/" target="_blank" class="Header-branding" data-nc-element="branding" data-content-field="site-title">
+					<img src="//static1.squarespace.com/static/5a8c555751a5846fc4c22984/t/5b94928cc2241b0779113936/1584495272576/?format=1500w" alt="Chicago Food Policy Action Council" class="Header-branding-logo">
+				</a>
 				<!-- ENDIF config.showSiteTitle -->
 
+				<button type="button" class="navbar-toggle hidden" id="mobile-chats">
+					<span component="chat/icon" class="notification-icon fa fa-fw fa-comments unread-count" data-content="{unreadCount.chat}"></span>
+					<i class="fa fa-lg fa-comment-o"></i>
+				</button>
 				<div component="navbar/title" class="visible-xs hidden">
 					<span></span>
 				</div>

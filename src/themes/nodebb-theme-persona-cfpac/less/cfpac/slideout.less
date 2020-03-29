@@ -1,3 +1,4 @@
+
 .slideout-menu {
   background-color: #486c11;
   background-image: none;
@@ -33,17 +34,55 @@
   padding-left: 5px;
 }
 
+.Slideout-nav-item--folder  {
+  width: 100%;
+}
 .Slideout-nav-folder {
   margin-left: 10px;
 }
 
-.Slideout-nav-item {
+a.Slideout-nav-item,
+a.Slideout-nav-folder-title {
   padding: 5px 20px;
+  width: 100%;
 }
 
-.Slideout-nav-item--donate {
+.Slideout-nav-item {
+
+}
+
+html a.Slideout-nav-item--donate {
   border: 2px solid #fff;
   background-color: transparent;
   color: #fff;
   margin-left: 20px;
+  width: auto;
+
+  &:hover {
+    color: #f9f786;
+    border-color: #f9f786;
+    background-color: darken(#486c11, 15%);
+  }
+}
+
+.slideout-menu {
+  [title="Groups"] {
+    display: none;
+  }
+}
+
+.slideout-menu a:hover {
+  text-decoration: none;
+  background-color: darken(#486c11, 7%);
+  transition: color 250ms ease-in-out, background-color 250ms ease-in-out;
+  color: white;
+}
+
+.SocialLinks-link {
+  max-width: 40px;
+  fill: white;
+
+  &:hover {
+    fill:  #f9f786;
+  }
 }

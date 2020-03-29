@@ -31,107 +31,6 @@
 
 <body class="{bodyClass} skin-<!-- IF bootswatchSkin -->{bootswatchSkin}<!-- ELSE -->noskin<!-- END -->">
 <div><a href="{config.relative_path}">{{config.relative_path}}</a></div>
-	<div template-variable="CFPAC">
-	<header class="Header Header--top tweak-header-primary-nav-hover-style-spotlight">
-	<div class="Header-inner Header-inner--top" data-nc-group="top">
-		<div data-nc-container="top-left">
-			<nav class="Header-nav Header-nav--primary" data-nc-element="primary-nav" data-content-field="navigation">
-				<div class="Header-nav-inner">
-     <span class="Header-nav-item Header-nav-item--folder">
-        <a href="https://www.chicagofoodpolicy.com/about" class="Header-nav-folder-title" data-controller="HeaderNavFolderTouch" data-controllers-bound="HeaderNavFolderTouch">About</a>
-       <span class="Header-nav-folder">
-         <a href="https://www.chicagofoodpolicy.com/services" class="Header-nav-folder-item">Overview</a>
-         <a href="https://www.chicagofoodpolicy.com/services-type-1" class="Header-nav-folder-item">Our Mission &amp; Vision</a>
-         <a href="https://www.chicagofoodpolicy.com/board-1" class="Header-nav-folder-item">Our Board</a>
-         <a href="https://www.chicagofoodpolicy.com/our-staff" class="Header-nav-folder-item">Our Staff</a>
-         <a href="https://www.chicagofoodpolicy.com/menu-details" class="Header-nav-folder-item">Our Accomplishments</a>
-       </span>
-     </span>
-
-					<a href="https://www.chicagofoodpolicy.com/covid19" class="Header-nav-item" data-test="template-nav">COVID-19</a>
-
-					<a href="https://www.chicagofoodpolicy.com/blog" class="Header-nav-item" data-test="template-nav">News</a>
-
-					<span class="Header-nav-item Header-nav-item--folder">
-      <a href="https://www.chicagofoodpolicy.com/working-groups-1" class="Header-nav-folder-title" data-controller="HeaderNavFolderTouch" data-controllers-bound="HeaderNavFolderTouch">Initiatives</a>
-      <span class="Header-nav-folder">
-       <a href="https://www.chicagofoodpolicy.com/initiatives" class="Header-nav-folder-item">Overview</a>
-       <a href="https://www.chicagofoodpolicy.com/procurement" class="Header-nav-folder-item">Procurement</a>
-       <a href="https://www.chicagofoodpolicy.com/landaccess" class="Header-nav-folder-item">Land Access</a>
-       <a href="https://www.chicagofoodpolicy.com/urbanagriculture" class="Header-nav-folder-item">Urban Agriculture</a>
-       <a href="https://www.chicagofoodpolicy.com/licensespermits" class="Header-nav-folder-item">Licenses + Permits</a>
-       <a href="https://www.chicagofoodpolicy.com/urbanfarmland" class="Header-nav-folder-item">Urban Farmland Policy</a>
-      </span>
-   </span>
-
-					<a href="https://www.chicagofoodpolicy.com/events-1" class="Header-nav-item">Events</a>
-
-					<span class="Header-nav-item Header-nav-item--folder">
-       <a href="https://www.chicagofoodpolicy.com/resources" class="Header-nav-folder-title" data-controller="HeaderNavFolderTouch" data-controllers-bound="HeaderNavFolderTouch">Resources</a>
-       <span class="Header-nav-folder">
-       <a href="http://www.chicagofoodpolicy.com/resources-1" class="Header-nav-folder-item">Reports</a>
-       <a href="http://www.chicagofoodpolicy.com/reports-press-releases/#docs" class="Header-nav-folder-item">Policy Documents</a>
-       <a href="http://www.chicagofoodpolicy.com/reports-press-releases/#presentations" class="Header-nav-folder-item">Presentations</a>
-     </span>
-    </span>
-
-			<span class="Header-nav-item Header-nav-item--folder">
-			 <a href="https://www.chicagofoodpolicy.com/connect" class="Header-nav-folder-title" data-controller="HeaderNavFolderTouch" data-controllers-bound="HeaderNavFolderTouch">Connect</a>
-			 <span class="Header-nav-folder">
-				 <a href="https://www.chicagofoodpolicy.com/contact" class="Header-nav-folder-item">Connect With Us</a>
-				 <a href="https://www.chicagofoodpolicy.com/speakingandtraining-overview" class="Header-nav-folder-item">Public Speaking &amp; Training</a>
-			 </span>
-		 </span>
-			<a href="https://chicagofoodpolicy.z2systems.com/donation.jsp?campaign=1&amp;" class="Header-nav-folder-title" data-controller="HeaderNavFolderTouch" data-controllers-bound="HeaderNavFolderTouch">Donate</a>
-
-				</div>
-			</nav>
-			<a href="https://www.chicagofoodpolicy.com/" class="Header-branding" data-nc-element="branding" data-content-field="site-title">
-				<img src="//static1.squarespace.com/static/5a8c555751a5846fc4c22984/t/5b94928cc2241b0779113936/1584495272576/?format=1500w" alt="Chicago Food Policy Action Council" class="Header-branding-logo">
-			</a>
-		</div>
-		<div data-nc-container="top-center">
-		</div>
-		<div data-nc-container="top-right">
-			<div class="Header-social" data-nc-element="social">
-				<nav class="SocialLinks" data-content-field="connected-accounts">
-					<div class="SocialLinks-inner">
-						<a href="https://www.linkedin.com/company/cfpac/" target="_blank" class="SocialLinks-link linkedin" style="">
-								<svg class="SocialLinks-link-svg" viewBox="0 0 64 64">
-									<use class="SocialLinks-link-icon" xlink:href="#linkedin-icon">
-									</use>
-								</svg>
-						</a>
-						<a href="http://www.facebook.com/chifoodpolicy" target="_blank" class="SocialLinks-link facebook" style="">
-								<svg class="SocialLinks-link-svg" viewBox="0 0 64 64">
-									<use class="SocialLinks-link-icon" xlink:href="#facebook-icon"></use>
-								</svg>
-						</a>
-						<a href="https://twitter.com/ChiFoodPolicy" target="_blank" class="SocialLinks-link twitter" style="">
-								<svg class="SocialLinks-link-svg" viewBox="0 0 64 64">
-									<use class="SocialLinks-link-icon" xlink:href="#twitter-icon"></use>
-								</svg>
-						</a>
-						<a href="https://www.instagram.com/chifoodpolicy/" target="_blank" class="SocialLinks-link instagram" style="">
-								<svg class="SocialLinks-link-svg" viewBox="0 0 64 64">
-									<use class="SocialLinks-link-icon" xlink:href="#instagram-icon"></use>
-								</svg>
-						</a>
-					</div>
-					<div class="Header-search" data-nc-element="search">
-						<a href="https://www.chicagofoodpolicy.com/search">
-							<svg class="search-link-svg" viewBox="0 0 64 64">
-								<use class="search-link-icon" xlink:href="#search-icon">
-								</use>
-							</svg>
-						</a>
-					</div>
-				</nav>
-			</div>
-		</div>
-	</div>
-</header>
-	</div>
 	<nav id="menu" class="slideout-menu hidden">
 		<div class="menu-profile">
 	<!-- IF user.uid -->
@@ -140,67 +39,93 @@
 	<!-- ENDIF user.uid -->
 </div>
 
+
+<section class="menu-section" data-section="navigation">
+	<h3 class="menu-section-title">[[global:header.navigation]]</h3>
+	<ul class="menu-section-list"></ul>
+</section>
+
 <section class="menu-section accordion" data-section="cfpac-navigation" id="Slideout-cfpac-menu">
 	<h3 class="menu-section-title">Chicago Food Policy Action Council</h3>
 	<nav class="Slideout-nav Slideout-nav--primary card">
 		<div class="Slideout-nav-inner">
-     <div class="Slideout-nav-item Slideout-nav-item--folder">
-        <a href="#" class="Slideout-nav-folder-title" data-toggle="collapse" data-target="#Slideout-folder-about" aria-expanded="true">About</a>
-       <div class="Slideout-nav-folder collapse card-body" data-parent="#Slideout-cfpac-menu" id="Slideout-folder-about">
-         <a href="https://www.chicagofoodpolicy.com/services" class="Slideout-nav-folder-item">Overview</a>
-         <a href="https://www.chicagofoodpolicy.com/services-type-1" class="Slideout-nav-folder-item">Our Mission &amp; Vision</a>
-         <a href="https://www.chicagofoodpolicy.com/board-1" class="Slideout-nav-folder-item">Our Board</a>
-         <a href="https://www.chicagofoodpolicy.com/our-staff" class="Slideout-nav-folder-item">Our Staff</a>
-         <a href="https://www.chicagofoodpolicy.com/menu-details" class="Slideout-nav-folder-item">Our Accomplishments</a>
-			 </div>
-     </div>
+			<div class="Slideout-nav-item Slideout-nav-item--folder">
+				<a href="#" class="Slideout-nav-folder-title" data-toggle="collapse" data-target="#Slideout-folder-about" aria-expanded="true">About</a>
+				<div class="Slideout-nav-folder collapse card-body" data-parent="#Slideout-cfpac-menu" id="Slideout-folder-about">
+					<a href="https://www.chicagofoodpolicy.com/services" class="Slideout-nav-folder-item">Overview</a>
+					<a href="https://www.chicagofoodpolicy.com/services-type-1" class="Slideout-nav-folder-item">Our Mission &amp; Vision</a>
+					<a href="https://www.chicagofoodpolicy.com/board-1" class="Slideout-nav-folder-item">Our Board</a>
+					<a href="https://www.chicagofoodpolicy.com/our-staff" class="Slideout-nav-folder-item">Our Staff</a>
+					<a href="https://www.chicagofoodpolicy.com/menu-details" class="Slideout-nav-folder-item">Our Accomplishments</a>
+				</div>
+			</div>
 
 			<a href="https://www.chicagofoodpolicy.com/covid19" class="Slideout-nav-item">COVID-19</a>
 
 			<a href="https://www.chicagofoodpolicy.com/blog" class="Slideout-nav-item"">News</a>
 
 			<div class="Slideout-nav-item Slideout-nav-item--folder">
-      <a href="#" class="Slideout-nav-folder-title" data-toggle="collapse" data-target="#Slideout-folder-initiatives" aria-expanded="true">Initiatives</a>
-      <div class="Slideout-nav-folder collapse card-body" data-parent="#Slideout-cfpac-menu" id="Slideout-folder-initiatives">
-       <a href="https://www.chicagofoodpolicy.com/initiatives" class="Slideout-nav-folder-item">Overview</a>
-       <a href="https://www.chicagofoodpolicy.com/procurement" class="Slideout-nav-folder-item">Procurement</a>
-       <a href="https://www.chicagofoodpolicy.com/landaccess" class="Slideout-nav-folder-item">Land Access</a>
-       <a href="https://www.chicagofoodpolicy.com/urbanagriculture" class="Slideout-nav-folder-item">Urban Agriculture</a>
-       <a href="https://www.chicagofoodpolicy.com/licensespermits" class="Slideout-nav-folder-item">Licenses + Permits</a>
-       <a href="https://www.chicagofoodpolicy.com/urbanfarmland" class="Slideout-nav-folder-item">Urban Farmland Policy</a>
-      </div>
-   </div>
+				<a href="#" class="Slideout-nav-folder-title" data-toggle="collapse" data-target="#Slideout-folder-initiatives" aria-expanded="true">Initiatives</a>
+				<div class="Slideout-nav-folder collapse card-body" data-parent="#Slideout-cfpac-menu" id="Slideout-folder-initiatives">
+					<a href="https://www.chicagofoodpolicy.com/initiatives" class="Slideout-nav-folder-item">Overview</a>
+					<a href="https://www.chicagofoodpolicy.com/procurement" class="Slideout-nav-folder-item">Procurement</a>
+					<a href="https://www.chicagofoodpolicy.com/landaccess" class="Slideout-nav-folder-item">Land Access</a>
+					<a href="https://www.chicagofoodpolicy.com/urbanagriculture" class="Slideout-nav-folder-item">Urban Agriculture</a>
+					<a href="https://www.chicagofoodpolicy.com/licensespermits" class="Slideout-nav-folder-item">Licenses + Permits</a>
+					<a href="https://www.chicagofoodpolicy.com/urbanfarmland" class="Slideout-nav-folder-item">Urban Farmland Policy</a>
+				</div>
+			</div>
 
 			<a href="https://www.chicagofoodpolicy.com/events-1" class="Slideout-nav-item">Events</a>
 
 			<div class="Slideout-nav-item Slideout-nav-item--folder">
-       <a href="#" class="Slideout-nav-folder-title" data-toggle="collapse" data-target="#Slideout-folder-resources" aria-expanded="true">Resources</a>
-       <div class="Slideout-nav-folder collapse card-body" data-parent="#Slideout-cfpac-menu" id="Slideout-folder-resources">
-       <a href="http://www.chicagofoodpolicy.com/resources-1" class="Slideout-nav-folder-item">Reports</a>
-       <a href="http://www.chicagofoodpolicy.com/reports-press-releases/#docs" class="Slideout-nav-folder-item">Policy Documents</a>
-       <a href="http://www.chicagofoodpolicy.com/reports-press-releases/#presentations" class="Slideout-nav-folder-item">Presentations</a>
-     </div>
-    </div>
+				<a href="#" class="Slideout-nav-folder-title" data-toggle="collapse" data-target="#Slideout-folder-resources" aria-expanded="true">Resources</a>
+				<div class="Slideout-nav-folder collapse card-body" data-parent="#Slideout-cfpac-menu" id="Slideout-folder-resources">
+					<a href="http://www.chicagofoodpolicy.com/resources-1" class="Slideout-nav-folder-item">Reports</a>
+					<a href="http://www.chicagofoodpolicy.com/reports-press-releases/#docs" class="Slideout-nav-folder-item">Policy Documents</a>
+					<a href="http://www.chicagofoodpolicy.com/reports-press-releases/#presentations" class="Slideout-nav-folder-item">Presentations</a>
+				</div>
+			</div>
 
 			<div class="Slideout-nav-item Slideout-nav-item--folder">
-     <a href="#" class="Slideout-nav-folder-title" data-toggle="collapse" data-target="#Slideout-folder-connect" aria-expanded="true">Connect</a>
-     <div class="Slideout-nav-folder collapse card-body" data-parent="#Slideout-cfpac-menu">
-       <a href="https://www.chicagofoodpolicy.com/contact" class="Slideout-nav-folder-item" id="Slideout-folder-connect">Connect With Us</a>
-       <a href="https://www.chicagofoodpolicy.com/speakingandtraining-overview" class="Slideout-nav-folder-item">Public Speaking &amp; Training</a>
-     </div>
-   </div>
+				<a href="#" class="Slideout-nav-folder-title" data-toggle="collapse" data-target="#Slideout-folder-connect" aria-expanded="true">Connect</a>
+				<div class="Slideout-nav-folder collapse card-body" data-parent="#Slideout-cfpac-menu">
+					<a href="https://www.chicagofoodpolicy.com/contact" class="Slideout-nav-folder-item" id="Slideout-folder-connect">Connect With Us</a>
+					<a href="https://www.chicagofoodpolicy.com/speakingandtraining-overview" class="Slideout-nav-folder-item">Public Speaking &amp; Training</a>
+				</div>
+			</div>
 			<a href="https://chicagofoodpolicy.z2systems.com/donation.jsp?campaign=1&amp;" target="_blank" class="Mobile-overlay-nav-item Slideout-nav-item Slideout-nav-item--donate" id="yui_3_17_2_1_1585087201814_414">
 				Donate
 			</a>
+
+			<div class="SocialLinks-inner">
+				<a href="https://www.linkedin.com/company/cfpac/" target="_blank" class="SocialLinks-link linkedin" style="">
+					<svg class="SocialLinks-link-svg" viewBox="0 0 64 64">
+						<use class="SocialLinks-link-icon" xlink:href="#linkedin-icon">
+						</use>
+					</svg>
+				</a>
+				<a href="http://www.facebook.com/chifoodpolicy" target="_blank" class="SocialLinks-link facebook" style="">
+					<svg class="SocialLinks-link-svg" viewBox="0 0 64 64">
+						<use class="SocialLinks-link-icon" xlink:href="#facebook-icon"></use>
+					</svg>
+				</a>
+				<a href="https://twitter.com/ChiFoodPolicy" target="_blank" class="SocialLinks-link twitter" style="">
+					<svg class="SocialLinks-link-svg" viewBox="0 0 64 64">
+						<use class="SocialLinks-link-icon" xlink:href="#twitter-icon"></use>
+					</svg>
+				</a>
+				<a href="https://www.instagram.com/chifoodpolicy/" target="_blank" class="SocialLinks-link instagram" style="">
+					<svg class="SocialLinks-link-svg" viewBox="0 0 64 64">
+						<use class="SocialLinks-link-icon" xlink:href="#instagram-icon"></use>
+					</svg>
+				</a>
+			</div>
 		</div>
 	</nav>
 
 </section>
 
-<section class="menu-section" data-section="navigation">
-	<h3 class="menu-section-title">[[global:header.navigation]]</h3>
-	<ul class="menu-section-list"></ul>
-</section>
 
 <!-- IF config.loggedIn -->
 <section class="menu-section" data-section="profile">
@@ -234,14 +159,10 @@
 	<main id="panel" class="slideout-panel">
 		<nav class="navbar navbar-default navbar-fixed-top header" id="header-menu" component="navbar">
 			<div class="container">
-							<div class="navbar-header">
+							<span class="navbar-header">
 				<button type="button" class="navbar-toggle pull-left" id="mobile-menu">
 					<span component="notifications/icon" class="notification-icon fa fa-fw fa-bell-o unread-count" data-content="{unreadCount.notification}"></span>
 					<i class="fa fa-lg fa-fw fa-bars"></i>
-				</button>
-				<button type="button" class="navbar-toggle hidden" id="mobile-chats">
-					<span component="chat/icon" class="notification-icon fa fa-fw fa-comments unread-count" data-content="{unreadCount.chat}"></span>
-					<i class="fa fa-lg fa-comment-o"></i>
 				</button>
 
 				<!-- IF brand:logo -->
@@ -253,8 +174,16 @@
 				<a href="<!-- IF title:url -->{title:url}<!-- ELSE -->{relative_path}/<!-- ENDIF title:url -->">
 					<h1 class="navbar-brand forum-title">{config.siteTitle}</h1>
 				</a>
+				<span class="forum-title-subtext">a project of</span>
+				<a href="https://www.chicagofoodpolicy.com/" target="_blank" class="Header-branding" data-nc-element="branding" data-content-field="site-title">
+					<img src="//static1.squarespace.com/static/5a8c555751a5846fc4c22984/t/5b94928cc2241b0779113936/1584495272576/?format=1500w" alt="Chicago Food Policy Action Council" class="Header-branding-logo">
+				</a>
 				<!-- ENDIF config.showSiteTitle -->
 
+				<button type="button" class="navbar-toggle hidden" id="mobile-chats">
+					<span component="chat/icon" class="notification-icon fa fa-fw fa-comments unread-count" data-content="{unreadCount.chat}"></span>
+					<i class="fa fa-lg fa-comment-o"></i>
+				</button>
 				<div component="navbar/title" class="visible-xs hidden">
 					<span></span>
 				</div>

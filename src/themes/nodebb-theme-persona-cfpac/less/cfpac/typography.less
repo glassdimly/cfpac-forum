@@ -74,12 +74,20 @@ body {
 
   a {
     color: #486c11;
+    text-decoration: none;
+  }
+
+  p a {
     padding-bottom: .05em;
     border-bottom-width: 1px;
     border-bottom-style: solid;
     border-bottom-color: rgba(72, 108, 17, .3);
     transition: border-color .15s ease-out, color .15s ease-out;
-    text-decoration: none;
+
+    a:hover {
+      color: rgba(72, 108, 17, .6);
+      border-color: rgba(72, 108, 17, .15);
+    }
   }
 
   a:hover {
@@ -92,7 +100,7 @@ body {
     a {
       transition: .1s opacity linear;
       padding: 21px 34px;
-      font-family: osp-dindin;
+      font-family: osp-dindin sans-serif;
       font-size: 14px;
       font-weight: 400;
       font-style: normal;
