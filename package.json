@@ -90,6 +90,7 @@
     "nodebb-plugin-gravatar": "^2.2.4",
     "nodebb-plugin-markdown": "8.11.2",
     "nodebb-plugin-mentions": "2.7.4",
+    "nodebb-plugin-ns-embed": "^4.0.0",
     "nodebb-plugin-question-and-answer": "^0.6.5",
     "nodebb-plugin-s3-uploads-updated": "^0.3.15",
     "nodebb-plugin-soundpack-default": "1.0.0",
