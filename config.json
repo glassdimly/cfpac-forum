@@ -1,5 +1,5 @@
 {
-    "url": "https://cfpac-forum.herokuapp.com/",
+    "url": "https://covid.chicagofoodpolicy.com",
     "secret": "8960838e-133a-404c-8dc5-5614881b4512",
     "database": "mongo",
     "mongo": {
