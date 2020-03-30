@@ -7,7 +7,7 @@
 
 
 <section class="menu-section" data-section="navigation">
-	<h3 class="menu-section-title">[[global:header.navigation]]</h3>
+	<h3 class="menu-section-title">Forum Navigation</h3>
 	<ul class="menu-section-list"></ul>
 </section>
 
@@ -95,7 +95,7 @@
 
 <!-- IF config.loggedIn -->
 <section class="menu-section" data-section="profile">
-	<h3 class="menu-section-title">[[global:header.profile]]</h3>
+	<h3 class="menu-section-title">Forum Profile</h3>
 	<ul class="menu-section-list" component="header/usercontrol"></ul>
 </section>
 

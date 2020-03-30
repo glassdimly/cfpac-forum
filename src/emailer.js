@@ -183,10 +183,10 @@ Emailer.send = async function (template, uid, params) {
 		User.getSettings(uid),
 	]);
 
-	console.log('userData', userData);
-	console.log('userSettings', userSettings);
-	console.log('template', template);
-	console.log('params', params);
+	// console.log('userData', userData);
+	// console.log('userSettings', userSettings);
+	// console.log('template', template);
+	// console.log('params', params);
 
 	if (!userData || !userData.email) {
 		winston.warn('uid : ' + uid + ' has no email, not sending.');
