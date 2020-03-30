@@ -62,6 +62,7 @@ html {
   display: none;
 }
 
+// Hide main nav because we are using hamburger on all widths
 #main-nav {
   display: none;
 }
@@ -85,6 +86,12 @@ html .navbar-brand {
   float: none;
 }
 
+// Fix top panel overlapping content on larger screens.
 #panel {
   padding-top: 120px !important;
+}
+
+// Fix doubled header after login.
+#navbar-header {
+  display: none;
 }
