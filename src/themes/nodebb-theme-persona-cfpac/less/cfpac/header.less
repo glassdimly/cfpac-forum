@@ -95,3 +95,20 @@ html .navbar-brand {
 #nav-dropdown {
   display: none;
 }
+
+#mobile-menu {
+  position: relative;
+
+  &:after {
+    content: 'menu';
+    position: absolute;
+    top: 25px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    font-size: 12px;
+  }
+
+  .fa-bars {
+    font-size: 2.7rem;
+  }
+}
