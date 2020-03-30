@@ -87,6 +87,7 @@
     "nodebb-plugin-emoji-android": "2.0.0",
     "nodebb-plugin-emoji-extended": "1.1.1+1238",
     "nodebb-plugin-emoji-one": "1.2.1+119",
+    "nodebb-plugin-gamification": "^1.0.1",
     "nodebb-plugin-gravatar": "^2.2.4",
     "nodebb-plugin-markdown": "8.11.2",
     "nodebb-plugin-mentions": "2.7.4",
