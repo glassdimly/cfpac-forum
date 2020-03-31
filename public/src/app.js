@@ -265,6 +265,7 @@ app.cacheBuster = null;
 					message: translated,
 					closeButton: false,
 					callback: function () {
+						app.logout();
 						window.location.reload();
 					},
 				});
