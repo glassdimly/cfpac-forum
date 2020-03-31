@@ -44,10 +44,10 @@
 					<div class="col-lg-offset-2 col-lg-10">
 						<button class="btn btn-primary btn-lg btn-block" id="login" type="submit">[[global:login]]</button>
 						<!-- IF allowRegistration -->
-						<span>[[login:dont_have_account]] <a href="{config.relative_path}/register">[[register:register]]</a></span>
+						<span class="login__no-acct--btn">[[login:dont_have_account]] <a id="login__no-acct--txt" class="btn btn-primary btn-lg btn-block" href="{config.relative_path}/register">[[register:register]]</a></span>
 						<!-- ENDIF allowRegistration -->
 						<!-- IF allowPasswordReset -->
-						&nbsp; <a id="reset-link" href="{config.relative_path}/reset">[[login:forgot_password]]</a>
+						&nbsp; <a id="reset-link" class="login__forgot-pwd--txt" href="{config.relative_path}/reset">[[login:forgot_password]]</a>
 						<!-- ENDIF allowPasswordReset -->
 					</div>
 				</div>

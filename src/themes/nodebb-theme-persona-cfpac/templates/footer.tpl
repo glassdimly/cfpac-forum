@@ -34,6 +34,19 @@
 		});
 	</script>
 
+	<script>
+		window.addEventListener('DOMContentLoaded', function () {
+			$(window).on('action:ajaxify.contentLoaded', function(data) {
+				// attach to all login/reg buttons except for the login and register buttons on the login page.
+				$("a[href$='/login'], a[href$='/register']").not('#login').not('#login__no-acct').each(function(i, el){
+					$(el).off('click').on('click', function(){
+						window.setCookie('login:referrer', window.location.href, 10);
+					});
+				});
+			});
+		});
+	</script>
+
 	<div class="hide">
 	<!-- IMPORT 500-embed.tpl -->
 	</div>

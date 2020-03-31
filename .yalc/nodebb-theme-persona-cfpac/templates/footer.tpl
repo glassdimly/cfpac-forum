@@ -34,6 +34,20 @@
 		});
 	</script>
 
+	<script>
+		alert('footer loooaded');
+		// @TODO This is pretty hacky having this here.
+		window.addEventListener('DOMContentLoaded', function () {
+			alert('stuff being added');
+			$("a[href$='/login'], a[href$='/register']").each(function(i, el){
+				console.log('setting click functions');
+				$(el).on('click', function(){
+					window.setCookie('login:referrer', window.location.href, 10);
+				});
+			});
+		});
+	</script>
+
 	<div class="hide">
 	<!-- IMPORT 500-embed.tpl -->
 	</div>

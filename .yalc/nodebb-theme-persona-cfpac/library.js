@@ -122,4 +122,8 @@ library.addUserToTopic = function(data, callback) {
 	}
 };
 
+library.addReferrerLoginClickListener = function(data, callback){
+	alert('addReferrerLoginClickListener');
+}
+
 module.exports = library;

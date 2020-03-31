@@ -7,6 +7,10 @@
 	{{{each linkTags}}}{function.buildLinkTag}{{{end}}}
 
 	<script>
+		// @TODO do this properly
+		if (window.location.href.startsWith('http://') && !window.location.href.startsWith('http://localhost')) {
+			window.location.replace(window.location.href.replace('http://', 'https://'))
+		}
 		var RELATIVE_PATH = "{relative_path}";
 		var config = JSON.parse('{{configJSON}}');
 		var app = {
@@ -15,7 +19,41 @@
 		};
 	</script>
 
+	<script>
+		alert('header loooaded');
 
+		window.setCookie = function(name, value, minutesToLive) {
+			// Encode value in order to escape semicolons, commas, and whitespace
+			var cookie = name + "=" + encodeURIComponent(value);
+			cookie += '; path=/';
+			/* Sets the max-age attribute so that the cookie expires
+			after the specified number of days */
+			cookie += "; max-age=" + (minutesToLive*60);
+
+			document.cookie = cookie;
+		}
+
+		window.getCookie = function(name) {
+			// Split cookie string and get all individual name=value pairs in an array
+			var cookieArr = document.cookie.split(";");
+
+			// Loop through the array elements
+			for(var i = 0; i < cookieArr.length; i++) {
+				var cookiePair = cookieArr[i].split("=");
+
+				/* Removing whitespace at the beginning of the cookie name
+				and compare it with the given string */
+				if(name == cookiePair[0].trim()) {
+					// Decode the cookie value and return
+					return decodeURIComponent(cookiePair[1]);
+				}
+			}
+
+			// Return null if not found
+			return null;
+		}
+
+	</script>
 
 	<!-- IF useCustomHTML -->
 	{{customHTML}}
@@ -27,8 +65,6 @@
 
 <body class="{bodyClass} skin-<!-- IF bootswatchSkin -->{bootswatchSkin}<!-- ELSE -->noskin<!-- END -->">
 <div><a href="{config.relative_path}">{{config.relative_path}}</a></div>
-	<!-- IMPORT header-cfpac.tpl -->
-
 	<nav id="menu" class="slideout-menu hidden">
 		<!-- IMPORT partials/slideout-menu.tpl -->
 	</nav>
@@ -43,3 +79,4 @@
 		</nav>
 		<div class="container" id="content">
 		<!-- IMPORT partials/noscript/warning.tpl -->
+

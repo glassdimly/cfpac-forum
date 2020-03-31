@@ -45,3 +45,8 @@
 		<button class="btn btn-link">[[register:cancel_registration]]</button>
 	</p>
 </form>
+
+<script>
+	// @TODO This is pretty hacky having this here.
+	window.setCookie('login:shouldRedirect', 'true', 10);
+</script>

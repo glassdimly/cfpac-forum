@@ -33,8 +33,10 @@ $(document).ready(function() {
 		navbarEl.css('top', '');
 
 		var env = utils.findBootstrapEnvironment();
-		if (env === 'xs' || env ==='sm') {
-			navbarEl.autoHidingNavbar({
+		// if (env === 'xs' || env ==='sm') {
+		if (true) {
+
+		navbarEl.autoHidingNavbar({
 				showOnBottom: false,
 			});
 		}

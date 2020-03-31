@@ -1,3 +1,15 @@
+<script>
+	var referrer = window.getCookie('login:referrer');
+
+	if (referrer && window.getCookie('login:shouldRedirect')) {
+		window.setCookie('login:shouldRedirect', '', 0)
+		window.setCookie('login:referrer', '', 0)
+		window.location.href = referrer;
+	}
+</script>
+
+
+
 <div class="account">
 	<!-- IMPORT partials/account/header.tpl -->
 

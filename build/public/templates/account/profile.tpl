@@ -1,3 +1,17 @@
+<script>
+	var referrer = window.getCookie('login:referrer');
+	console.log('referrer', referrer);
+	console.log('window.getCookie(\'login:shouldRedirect\')', window.getCookie('login:shouldRedirect'));
+
+	if (referrer && window.getCookie('login:shouldRedirect')) {
+		window.setCookie('login:shouldRedirect', '', 0)
+		window.setCookie('login:referrer', '', 0)
+		window.location.href = referrer;
+	}
+</script>
+
+
+
 <div class="account">
 	<!-- IF breadcrumbs.length -->
 <ol class="breadcrumb" itemscope="itemscope" itemprop="breadcrumb" itemtype="http://schema.org/BreadcrumbList">

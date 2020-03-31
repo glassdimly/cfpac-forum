@@ -1,0 +1,88 @@
+
+.slideout-menu {
+  background-color: #486c11;
+  background-image: none;
+}
+
+.Slideout-nav-inner {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+}
+
+.slideout-menu .menu-section-title,
+.dropdown-header {
+  font-size: 1.8rem;
+  color: white;
+  line-height: 1.2;
+}
+
+.Slideout-nav a {
+  display: inline-block;
+}
+
+.Slideout-nav,
+.menu-section-list {
+  margin-left: 20px;
+}
+
+.Slideout-nav-folder-title:after {
+  content: '\00BB';
+  font-family: sans-serif;
+  color: #FFF;
+  padding-left: 5px;
+}
+
+.Slideout-nav-item--folder  {
+  width: 100%;
+}
+.Slideout-nav-folder {
+  margin-left: 10px;
+}
+
+a.Slideout-nav-item,
+a.Slideout-nav-folder-title {
+  padding: 5px 20px;
+  width: 100%;
+}
+
+.Slideout-nav-item {
+
+}
+
+html a.Slideout-nav-item--donate {
+  border: 2px solid #fff;
+  background-color: transparent;
+  color: #fff;
+  margin-left: 20px;
+  width: auto;
+
+  &:hover {
+    color: #f9f786;
+    border-color: #f9f786;
+    background-color: darken(#486c11, 3%);
+  }
+}
+
+.slideout-menu {
+  [title="Groups"] {
+    display: none;
+  }
+}
+
+.slideout-menu a:hover {
+  text-decoration: none;
+  background-color: darken(#486c11, 3%);
+  transition: color 250ms ease-in-out, background-color 250ms ease-in-out;
+  color: white;
+}
+
+.SocialLinks-link {
+  max-width: 40px;
+  fill: white;
+
+  &:hover {
+    fill:  #f9f786;
+  }
+}
