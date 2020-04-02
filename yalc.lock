@@ -3,8 +3,7 @@
   "packages": {
     "nodebb-theme-persona-cfpac": {
       "signature": "fb6a002858a5fe251df1fd1471197983",
-      "file": true,
-      "replaced": "10.1.36"
+      "file": true
     }
   }
 }
