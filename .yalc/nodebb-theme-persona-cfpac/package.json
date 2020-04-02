@@ -1,0 +1,38 @@
+{
+  "name": "nodebb-theme-persona-cfpac",
+  "version": "10.1.36-00f910ff-fb6a0028",
+  "nbbpm": {
+    "compatibility": "^1.13.0"
+  },
+  "description": "Persona CFPAC theme for NodeBB",
+  "main": "theme.less",
+  "keywords": [
+    "nodebb",
+    "theme",
+    "forum",
+    "bootstrap",
+    "responsive"
+  ],
+  "contributors": [
+    {
+      "name": "Andrew Rodrigues",
+      "email": "andrew@designcreateplay.com",
+      "url": "https://github.com/psychobunny"
+    },
+    {
+      "name": "Julian Lam",
+      "email": "julian@designcreateplay.com",
+      "url": "https://github.com/julianlam"
+    },
+    {
+      "name": "Barış Soner Uşaklı",
+      "email": "baris@designcreateplay.com",
+      "url": "https://github.com/barisusakli"
+    }
+  ],
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "pulling": "^2.0.0",
+    "striptags": "^3.1.1"
+  }
+}

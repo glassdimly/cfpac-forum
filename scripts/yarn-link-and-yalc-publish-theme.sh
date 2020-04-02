@@ -5,7 +5,6 @@ ROOT=`pwd`
 THEME_REPO_RELATIVE_PATH="src/themes/$THEME_NAME"
 YALC_BIN_PATH="node_modules/.bin/yalc"
 
-npm install yarn
 cd $ROOT/$THEME_REPO_RELATIVE_PATH
 yarn link
 $ROOT/$YALC_BIN_PATH publish

@@ -1,6 +1,6 @@
 {
   "name": "nodebb-theme-persona-cfpac",
-  "version": "10.1.36",
+  "version": "10.1.36-00f910ff",
   "nbbpm": {
     "compatibility": "^1.13.0"
   },
