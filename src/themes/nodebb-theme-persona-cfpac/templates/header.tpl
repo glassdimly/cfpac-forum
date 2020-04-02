@@ -12,7 +12,8 @@
 			window.location.replace(window.location.href.replace('http://', 'https://'))
 		}
 		if (window.location.href.includes('://cfpac-forum.herokuapp.com')) {
-			const locationArray = window.location.href.split('.com/').shift();
+			let locationArray = window.location.href.split('.com/');
+			locationArray.split();
 			window.location.replace(`https://covid.chicagofoodpolicy.com/${locationArray ? locationArray.join('') : ''}`)
 		}
 		var RELATIVE_PATH = "{relative_path}";
