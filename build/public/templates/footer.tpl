@@ -35,18 +35,15 @@
 	</script>
 
 	<script>
-		// @TODO This is pretty hacky having this here.
 		window.addEventListener('DOMContentLoaded', function () {
 			$(window).on('action:ajaxify.contentLoaded', function(data) {
+				// attach to all login/reg buttons except for the login and register buttons on the login page.
 				$("a[href$='/login'], a[href$='/register']").not('#login').not('#login__no-acct').each(function(i, el){
-					console.log('setting click functions');
 					$(el).off('click').on('click', function(){
 						window.setCookie('login:referrer', window.location.href, 10);
-						alert(window.getCookie('login:referrer'));
 					});
 				});
 			});
-
 		});
 	</script>
 

@@ -2,7 +2,7 @@
   "version": "v1",
   "packages": {
     "nodebb-theme-persona-cfpac": {
-      "signature": "fb6a002858a5fe251df1fd1471197983",
+      "signature": "845c046de7c4f8bd59cc1d96168f697b",
       "file": true
     }
   }

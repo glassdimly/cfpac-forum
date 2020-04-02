@@ -65,7 +65,6 @@
 </form>
 
 <script>
-	alert('on register complete tpl');
 	// @TODO This is pretty hacky having this here.
 	window.setCookie('login:shouldRedirect', 'true', 10);
 </script>

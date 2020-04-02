@@ -1,7 +1,5 @@
 <script>
 	var referrer = window.getCookie('login:referrer');
-	console.log('referrer', referrer);
-	console.log('window.getCookie(\'login:shouldRedirect\')', window.getCookie('login:shouldRedirect'));
 
 	if (referrer && window.getCookie('login:shouldRedirect')) {
 		window.setCookie('login:shouldRedirect', '', 0)
