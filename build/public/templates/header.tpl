@@ -13,7 +13,7 @@
 		}
 		if (window.location.href.includes('://cfpac-forum.herokuapp.com')) {
 			let locationArray = window.location.href.split('.com/');
-			locationArray.split();
+			locationArray.shift();
 			window.location.replace(`https://covid.chicagofoodpolicy.com/${locationArray ? locationArray.join('') : ''}`)
 		}
 		var RELATIVE_PATH = "{relative_path}";
