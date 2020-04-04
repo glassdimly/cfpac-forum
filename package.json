@@ -12,6 +12,7 @@
   "scripts": {
     "start": "node loader.js",
     "start-dev": "export $(cat .env | xargs) && node loader.js",
+		"rebuild-dev": "./nodebb stop; ./nodebb build; yarn start-dev",
     "lint": "eslint --cache ./nodebb .",
     "pretest": "npm run lint",
     "test": "nyc --reporter=html --reporter=text-summary mocha",
