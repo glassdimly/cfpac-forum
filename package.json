@@ -12,7 +12,7 @@
   "scripts": {
     "start": "node loader.js",
     "start-dev": "export $(cat .env | xargs) && node loader.js",
-		"rebuild-dev": "./nodebb stop; ./nodebb build; yarn start-dev",
+    "rebuild-dev": "./nodebb stop; ./nodebb build; yarn start-dev",
     "lint": "eslint --cache ./nodebb .",
     "pretest": "npm run lint",
     "test": "nyc --reporter=html --reporter=text-summary mocha",
@@ -83,6 +83,7 @@
     "nconf": "^0.10.0",
     "nodebb-plugin-alioss-uploads": "^0.3.1",
     "nodebb-plugin-composer-default": "6.3.23",
+    "nodebb-plugin-custom-pages": "^1.1.3",
     "nodebb-plugin-dbsearch": "4.0.7",
     "nodebb-plugin-emoji": "^3.0.0",
     "nodebb-plugin-emoji-android": "2.0.0",
