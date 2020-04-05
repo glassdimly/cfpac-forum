@@ -17,7 +17,6 @@
 				flags: {},
 				inAdmin: true
 			};
-			consolt.log('in header.tpl nodebb admin. changes deployed.');
 		</script>
 
 		<script type="text/javascript" src="{relative_path}/assets/acp.min.js?{cache-buster}"></script>

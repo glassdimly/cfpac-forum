@@ -1,3 +1,23 @@
+	<script>
+		function sendBugReport() {
+			let a = document.createElement('a');
+			a.target= '_blank';
+			const body = encodeURIComponent(`Thank you for submitting a bug! A good bug report includes the following information:
+
+1) Screenshot
+2) Exact text of the error
+3) Your browser name (i.e. Chrome, Safari or Edge)
+4) Your operating system (i.e. Windows, Mac, iPhone)
+
+Including this information will help us reproduce and address your problem.
+
+You may delete this text and enter your own information.
+			`);
+			a.href = "mailto:cfpac-bugs@glassdimly.com&subject=CFPAC%20Forum%20Bug%20Report&body=" + body;
+			a.click();
+		}
+	</script>
+	<button class="btn btn-primary btn-sm" onclick="sendBugReport()">Submit a bug report or problem</button>
 		</div><!-- /.container#content -->
 	</main>
 	<!-- IF !isSpider -->
