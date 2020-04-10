@@ -11,8 +11,10 @@
   "main": "app.js",
   "scripts": {
     "start": "node loader.js",
-    "start-dev": "export $(cat .env | xargs) && node loader.js",
+		"start-debug": "export $(cat .env | xargs) && NODE_ENV=development && node --inspect --no-lazy app.js",
+    "start-dev": "export $(cat .env | xargs) && node loader.js dev",
     "rebuild-dev": "./nodebb stop; ./nodebb build; yarn start-dev",
+		"rebuild-debug": "./nodebb stop; ./nodebb build; yarn start-debug",
     "lint": "eslint --cache ./nodebb .",
     "pretest": "npm run lint",
     "test": "nyc --reporter=html --reporter=text-summary mocha",

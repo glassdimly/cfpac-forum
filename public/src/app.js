@@ -260,13 +260,14 @@ app.cacheBuster = null;
 
 		require(['translator'], function (translator) {
 			translator.translate('[[error:invalid-session-text]]', function (translated) {
+				// see @https://github.com/NodeBB/NodeBB/issues/8232
 				bootbox.alert({
 					title: '[[error:invalid-session]]',
-					message: translated,
+					message: translated + ' Log in, or continue browsing as anonymous.',
 					closeButton: false,
 					callback: function () {
 						app.logout();
-						window.location.reload();
+						window.location.href = '/login';
 					},
 				});
 			});
