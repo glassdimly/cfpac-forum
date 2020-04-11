@@ -1,0 +1,2 @@
+define("ace/snippets/alda",["require","exports","module"],function(e,o,t){"use strict";o.snippetText=undefined,o.scope="alda"});(function(){window.require(["ace/snippets/alda"],function(e){if(typeof module=="object"&&typeof exports=="object"&&module){module.exports=e}})})();
+//# sourceMappingURL=alda.js.map

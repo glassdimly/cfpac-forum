@@ -1,0 +1,2 @@
+define("ace/snippets/mediawiki",["require","exports","module"],function(e,i,o){"use strict";i.snippetText=undefined,i.scope="mediawiki"});(function(){window.require(["ace/snippets/mediawiki"],function(e){if(typeof module=="object"&&typeof exports=="object"&&module){module.exports=e}})})();
+//# sourceMappingURL=mediawiki.js.map

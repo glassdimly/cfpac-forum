@@ -1,2 +1,2 @@
-define("ace/snippets/csp",["require","exports","module"],function(e,o,t){"use strict";o.snippetText=undefined,o.scope=""});(function(){window.require(["ace/snippets/csp"],function(e){if(typeof module=="object"&&typeof exports=="object"&&module){module.exports=e}})})();
+define("ace/snippets/csp",["require","exports","module"],function(e,o,t){"use strict";o.snippetText=undefined,o.scope="csp"});(function(){window.require(["ace/snippets/csp"],function(e){if(typeof module=="object"&&typeof exports=="object"&&module){module.exports=e}})})();
 //# sourceMappingURL=csp.js.map

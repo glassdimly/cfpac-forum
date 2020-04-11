@@ -1,0 +1,2 @@
+define("ace/snippets/prisma",["require","exports","module"],function(e,i,o){"use strict";i.snippetText=undefined,i.scope="prisma"});(function(){window.require(["ace/snippets/prisma"],function(e){if(typeof module=="object"&&typeof exports=="object"&&module){module.exports=e}})})();
+//# sourceMappingURL=prisma.js.map

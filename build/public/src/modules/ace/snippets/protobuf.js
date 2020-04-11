@@ -1,2 +1,2 @@
-define("ace/snippets/protobuf",["require","exports","module"],function(e,o,t){"use strict";o.snippetText="",o.scope="protobuf"});(function(){window.require(["ace/snippets/protobuf"],function(e){if(typeof module=="object"&&typeof exports=="object"&&module){module.exports=e}})})();
+define("ace/snippets/protobuf",["require","exports","module"],function(e,o,t){"use strict";o.snippetText=undefined,o.scope="protobuf"});(function(){window.require(["ace/snippets/protobuf"],function(e){if(typeof module=="object"&&typeof exports=="object"&&module){module.exports=e}})})();
 //# sourceMappingURL=protobuf.js.map

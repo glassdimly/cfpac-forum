@@ -1,2 +1,2 @@
-define("ace/snippets/jssm",["require","exports","module"],function(e,o,t){"use strict";o.snippetText=undefined,o.scope=""});(function(){window.require(["ace/snippets/jssm"],function(e){if(typeof module=="object"&&typeof exports=="object"&&module){module.exports=e}})})();
+define("ace/snippets/jssm",["require","exports","module"],function(e,s,o){"use strict";s.snippetText=undefined,s.scope="jssm"});(function(){window.require(["ace/snippets/jssm"],function(e){if(typeof module=="object"&&typeof exports=="object"&&module){module.exports=e}})})();
 //# sourceMappingURL=jssm.js.map
