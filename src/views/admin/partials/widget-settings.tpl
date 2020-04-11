@@ -4,6 +4,9 @@
 
 <label>[[admin/extend/widgets:container]]</label>
 <textarea rows="4" class="form-control container-html" name="container" placeholder="[[admin/extend/widgets:container.placeholder]]"></textarea>
+<div>
+	Check for unclosed tags <a href="https://www.aliciaramirez.com/closing-tags-checker" target="_blank">here</a>
+</div>
 
 <br/>
 <div class="row">
@@ -24,7 +27,7 @@
       </select>
   </div>
 </div>
-
 <div class="checkbox">
 <label><input name="hide-mobile" type="checkbox"> [[admin/extend/widgets:hide-on-mobile]]</input></label>
 </div>
+
