@@ -16,9 +16,14 @@ You may delete this text and enter your own information.
 			a.href = "mailto:cfpac-bugs@glassdimly.com&subject=CFPAC%20Forum%20Bug%20Report&body=" + body;
 			a.click();
 		}
+
+		function goToContact() { window.location.href = './contact' }
+
 	</script>
-	<button class="btn btn-primary btn-sm" onclick="sendBugReport()">Submit a bug report or problem</button>
-		</div><!-- /.container#content -->
+	<button class="btn btn-warning btn-sm" onclick="sendBugReport()">Submit a bug report or problem</button>
+	<button class="btn btn-success btn-sm" onclick="goToContact()">Contact Us</button>
+
+	</div><!-- /.container#content -->
 	</main>
 	<!-- IF !isSpider -->
 	<div class="topic-search hidden">
