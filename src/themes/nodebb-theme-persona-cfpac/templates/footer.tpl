@@ -1,7 +1,7 @@
 	<script>
 		function sendBugReport() {
 			let a = document.createElement('a');
-			a.target= '_blank';
+			a.target = '_blank';
 			const body = encodeURIComponent(`Thank you for submitting a bug! A good bug report includes the following information:
 
 1) Screenshot
@@ -17,11 +17,16 @@ You may delete this text and enter your own information.
 			a.click();
 		}
 
-		function goToContact() { window.location.href = './contact' }
+		function contactUs() {
+			let a = document.createElement('a');
+			a.target = '_blank';
+			a.href = "mailto:rcooley@chicagofoodpolicy.com&subject=CFPAC%20Forum%20Contact";
+			a.click();
+		}
 
 	</script>
 	<button class="btn btn-warning btn-sm" onclick="sendBugReport()">Submit a bug report or problem</button>
-	<button class="btn btn-success btn-sm" onclick="goToContact()">Contact Us</button>
+	<button class="btn btn-success btn-sm" onclick="contactUs()">Contact Us</button>
 
 	</div><!-- /.container#content -->
 	</main>
