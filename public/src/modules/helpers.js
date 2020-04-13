@@ -286,8 +286,7 @@
 		var attributes = [
 			'alt="' + userObj.username + '"',
 			'title="' + userObj.username + '"',
-			// Removed because of https://github.com/NodeBB/NodeBB/issues/8252
-			// 'data-uid="' + userObj.uid + '"',
+			'data-uid="' + userObj.uid + '"',
 		];
 		var styles = [];
 		classNames = classNames || '';
