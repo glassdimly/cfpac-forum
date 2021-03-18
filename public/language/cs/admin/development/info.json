@@ -1,5 +1,6 @@
 {
-	"you-are-on": "Informace – jste na <strong>%1:%2</strong>",
+	"you-are-on": "You are on <strong>%1:%2</strong>",
+	"ip": "IP <strong>%1</strong>",
 	"nodes-responded": "%1 vazeb odpovědělo během %2ms.",
 	"host": "host",
 	"pid": "pid",
@@ -7,7 +8,8 @@
 	"online": "připojen",
 	"git": "git",
 	"memory": "paměť",
-	"load": "načíst",
+	"load": "zatížení systému",
+	"cpu-usage": "využití CPU",
 	"uptime": "čas spuštění",
 
 	"registered": "Registrován",

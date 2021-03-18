@@ -1,6 +1,7 @@
 {
 	"maintenance-mode": "Modo de Manutenção",
 	"maintenance-mode.help": "When the forum is in maintenance mode, all requests will be redirected to a static holding page. Administrators are exempt from this redirection, and are able to access the site normally.",
+	"maintenance-mode.status": "Maintenance Mode Status Code",
 	"maintenance-mode.message": "Mensagem de Manutenção",
 	"headers": "Headers",
 	"headers.allow-from": "Set ALLOW-FROM to Place NodeBB in an iFrame",
@@ -14,6 +15,7 @@
 	"headers.acah": "Access-Control-Allow-Headers",
 	"hsts": "Strict Transport Security",
 	"hsts.enabled": "Enabled HSTS (recommended)",
+	"hsts.maxAge": "HSTS Max Age",
 	"hsts.subdomains": "Include subdomains in HSTS header",
 	"hsts.preload": "Allow preloading of HSTS header",
 	"hsts.help": "If enabled, an HSTS header will be set for this site. You can elect to include subdomains and preloading flags in your header. If in doubt, you can leave these unchecked. <a href=\"%1\">More information <i class=\"fa fa-external-link\"></i></a>",

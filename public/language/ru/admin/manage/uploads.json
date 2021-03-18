@@ -1,9 +1,9 @@
 {
-    "upload-file": "Upload File",
-    "filename": "Filename",
-    "usage": "Post Usage",
-    "orphaned": "Orphaned",
-    "size/filecount": "Size / Filecount",
-    "confirm-delete": "Do you really want to delete this file?",
-    "filecount": "%1 files"
+    "upload-file": "Загрузить Файл",
+    "filename": "Название",
+    "usage": "Использ. в сообщениях",
+    "orphaned": "Отделенный",
+    "size/filecount": "Размер / Файлов",
+    "confirm-delete": "Вы действительно хотите удалить этот файл?",
+    "filecount": "%1 файлов"
 }

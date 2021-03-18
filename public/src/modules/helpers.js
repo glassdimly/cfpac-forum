@@ -10,6 +10,9 @@
 		});
 	}
 }(function (utils, Benchpress, relative_path) {
+	Benchpress.setGlobal('true', true);
+	Benchpress.setGlobal('false', false);
+
 	var helpers = {
 		displayMenuItem: displayMenuItem,
 		buildMetaTag: buildMetaTag,
@@ -26,6 +29,7 @@
 		renderTopicImage: renderTopicImage,
 		renderDigestAvatar: renderDigestAvatar,
 		userAgentIcons: userAgentIcons,
+		buildAvatar: buildAvatar,
 		register: register,
 		__escape: identity,
 	};
@@ -121,7 +125,7 @@
 			if (child && !child.isSection) {
 				var link = child.link ? child.link : (relative_path + '/category/' + child.slug);
 				html += '<span class="category-children-item pull-left">' +
-					'<div class="icon pull-left" style="' + generateCategoryBackground(child) + '">' +
+					'<div role="presentation" class="icon pull-left" style="' + generateCategoryBackground(child) + '">' +
 					'<i class="fa fa-fw ' + child.icon + '"></i>' +
 					'</div>' +
 					'<a href="' + link + '"><small>' + child.name + '</small></a></span>';
@@ -156,7 +160,7 @@
 	// Groups helpers
 	function membershipBtn(groupObj) {
 		if (groupObj.isMember && groupObj.name !== 'administrators') {
-			return '<button class="btn btn-danger" data-action="leave" data-group="' + groupObj.displayName + '"><i class="fa fa-times"></i> [[groups:membership.leave-group]]</button>';
+			return '<button class="btn btn-danger" data-action="leave" data-group="' + groupObj.displayName + '"' + (groupObj.disableLeave ? ' disabled' : '') + '><i class="fa fa-times"></i> [[groups:membership.leave-group]]</button>';
 		}
 
 		if (groupObj.isPending && groupObj.name !== 'administrators') {
@@ -182,9 +186,11 @@
 		return states.map(function (priv) {
 			var guestDisabled = ['groups:moderate', 'groups:posts:upvote', 'groups:posts:downvote', 'groups:local:login', 'groups:group:create'];
 			var spidersEnabled = ['groups:find', 'groups:read', 'groups:topics:read', 'groups:view:users', 'groups:view:tags', 'groups:view:groups'];
+			var globalModDisabled = ['groups:moderate'];
 			var disabled =
 				(member === 'guests' && guestDisabled.includes(priv.name)) ||
-				(member === 'spiders' && !spidersEnabled.includes(priv.name));
+				(member === 'spiders' && !spidersEnabled.includes(priv.name)) ||
+				(member === 'Global Moderators' && globalModDisabled.includes(priv.name));
 
 			return '<td class="text-center" data-privilege="' + priv.name + '"><input type="checkbox"' + (priv.state ? ' checked' : '') + (disabled ? ' disabled="disabled"' : '') + ' /></td>';
 		}).join('');
@@ -265,6 +271,49 @@
 		}
 
 		return icons;
+	}
+
+	function buildAvatar(userObj, size, rounded, classNames, component) {
+		/**
+		 * userObj requires:
+		 *   - uid, picture, icon:bgColor, icon:text (getUserField w/ "picture" should return all 4), username
+		 * size: one of "xs", "sm", "md", "lg", or "xl" (required), or an integer
+		 * rounded: true or false (optional, default false)
+		 * classNames: additional class names to prepend (optional, default none)
+		 * component: overrides the default component (optional, default none)
+		 */
+
+		var attributes = [
+			'alt="' + userObj.username + '"',
+			'title="' + userObj.username + '"',
+			'data-uid="' + userObj.uid + '"',
+		];
+		var styles = [];
+		classNames = classNames || '';
+
+		// Validate sizes, handle integers, otherwise fall back to `avatar-sm`
+		if (['xs', 'sm', 'sm2x', 'md', 'lg', 'xl'].includes(size)) {
+			classNames += ' avatar-' + size;
+		} else if (!isNaN(parseInt(size, 10))) {
+			styles.push('width: ' + size + 'px;', 'height: ' + size + 'px;', 'line-height: ' + size + 'px;', 'font-size: ' + (parseInt(size, 10) / 16) + 'rem;');
+		} else {
+			classNames += ' avatar-sm';
+		}
+		attributes.unshift('class="avatar ' + classNames + (rounded ? ' avatar-rounded' : '') + '"');
+
+		// Component override
+		if (component) {
+			attributes.push('component="' + component + '"');
+		} else {
+			attributes.push('component="avatar/' + (userObj.picture ? 'picture' : 'icon') + '"');
+		}
+
+		if (userObj.picture) {
+			return '<img ' + attributes.join(' ') + ' src="' + userObj.picture + '" style="' + styles.join(' ') + '" />';
+		}
+
+		styles.push('background-color: ' + userObj['icon:bgColor'] + ';');
+		return '<span ' + attributes.join(' ') + ' style="' + styles.join(' ') + '">' + userObj['icon:text'] + '</span>';
 	}
 
 	function register() {

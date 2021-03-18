@@ -1,8 +1,8 @@
 'use strict';
 
 
-var app = window.app || {};
-var socket;
+app = window.app || {};
+socket = window.socket;
 app.isConnected = false;
 
 (function () {
@@ -16,6 +16,25 @@ app.isConnected = false;
 	};
 
 	socket = io(config.websocketAddress, ioParams);
+
+	var oEmit = socket.emit;
+	socket.emit = function (event, data, callback) {
+		if (typeof data === 'function') {
+			callback = data;
+			data = null;
+		}
+		if (typeof callback === 'function') {
+			oEmit.apply(socket, [event, data, callback]);
+			return;
+		}
+
+		return new Promise(function (resolve, reject) {
+			oEmit.apply(socket, [event, data, function (err, result) {
+				if (err) reject(err);
+				else resolve(result);
+			}]);
+		});
+	};
 
 	if (parseInt(app.user.uid, 10) >= 0) {
 		addHandlers();

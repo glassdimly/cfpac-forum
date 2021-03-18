@@ -8,7 +8,8 @@ define('forum/topic/posts', [
 	'forum/topic/images',
 	'navigator',
 	'components',
-], function (pagination, infinitescroll, postTools, images, navigator, components) {
+	'translator',
+], function (pagination, infinitescroll, postTools, images, navigator, components, translator) {
 	var Posts = { };
 
 	Posts.onNewPost = function (data) {
@@ -26,6 +27,8 @@ define('forum/topic/posts', [
 		Posts.modifyPostsByPrivileges(data.posts);
 
 		updatePostCounts(data.posts);
+
+		updatePostIndices(data.posts);
 
 		ajaxify.data.postcount += 1;
 		postTools.updatePostCount(ajaxify.data.postcount);
@@ -57,6 +60,16 @@ define('forum/topic/posts', [
 			var cmp = components.get('user/postcount', posts[i].uid);
 			cmp.html(parseInt(cmp.attr('data-postcount'), 10) + 1);
 			utils.addCommasToNumbers(cmp);
+		}
+	}
+
+	function updatePostIndices(posts) {
+		if (config.topicPostSort === 'newest_to_oldest') {
+			posts[0].index = 1;
+			components.get('post').not('[data-index=0]').each(function () {
+				var newIndex = parseInt($(this).attr('data-index'), 10) + 1;
+				$(this).attr('data-index', newIndex);
+			});
 		}
 	}
 
@@ -199,7 +212,7 @@ define('forum/topic/posts', [
 				components.get('topic').append(html);
 			}
 
-			infinitescroll.removeExtra($('[component="post"]'), direction, config.postsPerPage * 2);
+			infinitescroll.removeExtra($('[component="post"]'), direction, Math.max(20, config.postsPerPage * 2));
 
 			$(window).trigger('action:posts.loaded', { posts: data.posts });
 
@@ -250,12 +263,78 @@ define('forum/topic/posts', [
 	};
 
 	Posts.onTopicPageLoad = function (posts) {
+		handlePrivateUploads(posts);
 		images.wrapImagesInLinks(posts);
 		Posts.showBottomPostBar();
 		posts.find('[component="post/content"] img:not(.not-responsive)').addClass('img-responsive');
 		Posts.addBlockquoteEllipses(posts);
 		hidePostToolsForDeletedPosts(posts);
+		addNecroPostMessage();
 	};
+
+	function addNecroPostMessage() {
+		var necroThreshold = ajaxify.data.necroThreshold * 24 * 60 * 60 * 1000;
+		if (!necroThreshold || (config.topicPostSort !== 'newest_to_oldest' && config.topicPostSort !== 'oldest_to_newest')) {
+			return;
+		}
+
+		$('[component="post"]').each(function () {
+			var post = $(this);
+			var prev = post.prev('[component="post"]');
+			if (post.is(':has(.necro-post)') || !prev.length) {
+				return;
+			}
+			if (config.topicPostSort === 'newest_to_oldest' && parseInt(prev.attr('data-index'), 10) === 0) {
+				return;
+			}
+
+			var diff = post.attr('data-timestamp') - prev.attr('data-timestamp');
+			if (Math.abs(diff) >= necroThreshold) {
+				var suffixAgo = $.timeago.settings.strings.suffixAgo;
+				var prefixAgo = $.timeago.settings.strings.prefixAgo;
+				var suffixFromNow = $.timeago.settings.strings.suffixFromNow;
+				var prefixFromNow = $.timeago.settings.strings.prefixFromNow;
+
+				$.timeago.settings.strings.suffixAgo = '';
+				$.timeago.settings.strings.prefixAgo = '';
+				$.timeago.settings.strings.suffixFromNow = '';
+				$.timeago.settings.strings.prefixFromNow = '';
+
+				var translationText = (diff > 0 ? '[[topic:timeago_later,' : '[[topic:timeago_earlier,') + $.timeago.inWords(diff) + ']]';
+
+				$.timeago.settings.strings.suffixAgo = suffixAgo;
+				$.timeago.settings.strings.prefixAgo = prefixAgo;
+				$.timeago.settings.strings.suffixFromNow = suffixFromNow;
+				$.timeago.settings.strings.prefixFromNow = prefixFromNow;
+				app.parseAndTranslate('partials/topic/necro-post', { text: translationText }, function (html) {
+					html.prependTo(post);
+				});
+			}
+		});
+	}
+
+	function handlePrivateUploads(posts) {
+		if (app.user.uid || !ajaxify.data.privateUploads) {
+			return;
+		}
+
+		// Replace all requests for uploaded images/files with a login link
+		var loginEl = document.createElement('a');
+		loginEl.className = 'login-required';
+		loginEl.href = config.relative_path + '/login';
+
+		translator.translate('[[topic:login-to-view]]', function (translated) {
+			loginEl.appendChild(document.createTextNode(translated));
+			posts.each(function (idx, postEl) {
+				$(postEl).find('[component="post/content"] img').each(function (idx, imgEl) {
+					imgEl = $(imgEl);
+					if (imgEl.attr('src').startsWith(config.relative_path + config.upload_url)) {
+						imgEl.replaceWith(loginEl.cloneNode(true));
+					}
+				});
+			});
+		});
+	}
 
 	Posts.onNewPostsAddedToDom = function (posts) {
 		Posts.onTopicPageLoad(posts);

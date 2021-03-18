@@ -50,25 +50,21 @@ describe('User', function () {
 
 
 	describe('.create(), when created', function () {
-		it('should be created properly', function (done) {
-			User.create({ username: userData.username, password: userData.password, email: userData.email }, function (error, userId) {
-				assert.equal(error, null, 'was created with error');
-				assert.ok(userId);
-
-				testUid = userId;
-				done();
-			});
+		it('should be created properly', async function () {
+			testUid = await User.create({ username: userData.username, password: userData.password, email: userData.email });
+			assert.ok(testUid);
 		});
 
-		it('should be created properly', function (done) {
-			User.create({ username: 'weirdemail', email: '<h1>test</h1>@gmail.com' }, function (err, uid) {
-				assert.ifError(err);
-				User.getUserData(uid, function (err, data) {
-					assert.ifError(err);
-					assert.equal(data.email, '&lt;h1&gt;test&lt;&#x2F;h1&gt;@gmail.com');
-					done();
-				});
-			});
+		it('should be created properly', async function () {
+			const uid = await User.create({ username: 'weirdemail', email: '<h1>test</h1>@gmail.com' });
+			const data = await User.getUserData(uid);
+			assert.equal(data.email, '&lt;h1&gt;test&lt;&#x2F;h1&gt;@gmail.com');
+			assert.strictEqual(data.profileviews, 0);
+			assert.strictEqual(data.reputation, 0);
+			assert.strictEqual(data.postcount, 0);
+			assert.strictEqual(data.topiccount, 0);
+			assert.strictEqual(data.lastposttime, 0);
+			assert.strictEqual(data.banned, 0);
 		});
 
 		it('should have a valid email, if using an email', function (done) {
@@ -899,7 +895,7 @@ describe('User', function () {
 		it('should return error if profile image uploads disabled', function (done) {
 			meta.config.allowProfileImageUploads = 0;
 			var picture = {
-				path: path.join(nconf.get('base_dir'), 'test/files/test.png'),
+				path: path.join(nconf.get('base_dir'), 'test/files/test_copy.png'),
 				size: 7189,
 				name: 'test.png',
 				type: 'image/png',
@@ -916,7 +912,7 @@ describe('User', function () {
 		it('should return error if profile image is too big', function (done) {
 			meta.config.allowProfileImageUploads = 1;
 			var picture = {
-				path: path.join(nconf.get('base_dir'), 'test/files/test.png'),
+				path: path.join(nconf.get('base_dir'), 'test/files/test_copy.png'),
 				size: 265000,
 				name: 'test.png',
 				type: 'image/png',
@@ -933,7 +929,7 @@ describe('User', function () {
 
 		it('should return error if profile image has no mime type', function (done) {
 			var picture = {
-				path: path.join(nconf.get('base_dir'), 'test/files/test.png'),
+				path: path.join(nconf.get('base_dir'), 'test/files/test_copy.png'),
 				size: 7189,
 				name: 'test',
 			};
@@ -1450,6 +1446,18 @@ describe('User', function () {
 			});
 		});
 
+		it('should fail to delete user if account deletion is not allowed', async function () {
+			const oldValue = meta.config.allowAccountDeletion;
+			meta.config.allowAccountDeletion = 0;
+			const uid = await User.create({ username: 'tobedeleted' });
+			try {
+				await socketUser.deleteAccount({ uid: uid }, {});
+			} catch (err) {
+				assert.equal(err.message, '[[error:no-privileges]]');
+			}
+			meta.config.allowAccountDeletion = oldValue;
+		});
+
 		it('should fail if data is invalid', function (done) {
 			socketUser.emailExists({ uid: testUid }, null, function (err) {
 				assert.equal(err.message, '[[error:invalid-data]]');
@@ -1523,7 +1531,7 @@ describe('User', function () {
 
 		it('should save user settings', function (done) {
 			var data = {
-				uid: 1,
+				uid: testUid,
 				settings: {
 					bootswatchSkin: 'default',
 					homePageRoute: 'none',
@@ -1551,6 +1559,21 @@ describe('User', function () {
 					assert.equal(data.usePagination, true);
 					done();
 				});
+			});
+		});
+
+		it('should error if language is invalid', function (done) {
+			var data = {
+				uid: testUid,
+				settings: {
+					userLang: '<invalid-string>',
+					topicsPerPage: '10',
+					postsPerPage: '5',
+				},
+			};
+			socketUser.saveSettings({ uid: testUid }, data, function (err) {
+				assert.equal(err.message, '[[error:invalid-language]]');
+				done();
 			});
 		});
 
@@ -1588,13 +1611,11 @@ describe('User', function () {
 	});
 
 	describe('approval queue', function () {
-		var socketAdmin = require('../src/socket.io/admin');
-
-		var oldRegistrationType;
+		var oldRegistrationApprovalType;
 		var adminUid;
 		before(function (done) {
-			oldRegistrationType = meta.config.registrationType;
-			meta.config.registrationType = 'admin-approval';
+			oldRegistrationApprovalType = meta.config.registrationApprovalType;
+			meta.config.registrationApprovalType = 'admin-approval';
 			User.create({ username: 'admin', password: '123456' }, function (err, uid) {
 				assert.ifError(err);
 				adminUid = uid;
@@ -1603,7 +1624,7 @@ describe('User', function () {
 		});
 
 		after(function (done) {
-			meta.config.registrationType = oldRegistrationType;
+			meta.config.registrationApprovalType = oldRegistrationApprovalType;
 			done();
 		});
 
@@ -1893,10 +1914,8 @@ describe('User', function () {
 
 	describe('user jobs', function () {
 		it('should start user jobs', function (done) {
-			User.startJobs(function (err) {
-				assert.ifError(err);
-				done();
-			});
+			User.startJobs();
+			done();
 		});
 
 		it('should stop user jobs', function (done) {
@@ -2157,10 +2176,20 @@ describe('User', function () {
 		});
 	});
 
-	it('should return offline if user is guest', function (done) {
-		var status = User.getStatus({ uid: 0 });
-		assert.strictEqual(status, 'offline');
-		done();
+	describe('status/online', function () {
+		it('should return offline if user is guest', function (done) {
+			var status = User.getStatus({ uid: 0 });
+			assert.strictEqual(status, 'offline');
+			done();
+		});
+
+		it('should return offline if user is guest', async function () {
+			assert.strictEqual(await User.isOnline(0), false);
+		});
+
+		it('should return true', async function () {
+			assert.strictEqual(await User.isOnline(testUid), true);
+		});
 	});
 
 	describe('isPrivilegedOrSelf', function () {
@@ -2197,6 +2226,19 @@ describe('User', function () {
 			assert.ifError(err);
 			assert(Array.isArray(data));
 			done();
+		});
+	});
+
+	it('should allow user to login even if password is weak', function (done) {
+		User.create({ username: 'weakpwd', password: '123456' }, function (err) {
+			assert.ifError(err);
+			const oldValue = meta.config.minimumPasswordStrength;
+			meta.config.minimumPasswordStrength = 3;
+			helpers.loginUser('weakpwd', '123456', function (err, jar, csrfs_token) {
+				assert.ifError(err);
+				meta.config.minimumPasswordStrength = oldValue;
+				done();
+			});
 		});
 	});
 });

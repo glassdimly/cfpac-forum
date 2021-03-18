@@ -3,6 +3,7 @@
 
 var assert = require('assert');
 var async = require('async');
+var nconf = require('nconf');
 
 var db = require('./mocks/databasemock');
 var meta = require('../src/meta');
@@ -228,7 +229,6 @@ describe('Notifications', function () {
 	it('should link to the first unread post in a watched topic', function (done) {
 		var categories = require('../src/categories');
 		var topics = require('../src/topics');
-
 		var watcherUid;
 		var cid;
 		var tid;
@@ -286,7 +286,7 @@ describe('Notifications', function () {
 			},
 			function (notifications, next) {
 				assert.equal(notifications.unread.length, 1, 'there should be 1 unread notification');
-				assert.equal('/post/' + pid, notifications.unread[0].path, 'the notification should link to the first unread post');
+				assert.equal(nconf.get('relative_path') + '/post/' + pid, notifications.unread[0].path, 'the notification should link to the first unread post');
 				next();
 			},
 		], function (err) {
@@ -300,7 +300,7 @@ describe('Notifications', function () {
 			assert.ifError(err);
 			assert.equal(data[0].bodyShort, 'bodyShort');
 			assert.equal(data[0].nid, 'notification_id');
-			assert.equal(data[0].path, '/notification/path');
+			assert.equal(data[0].path, nconf.get('relative_path') + '/notification/path');
 			done();
 		});
 	});
@@ -380,6 +380,14 @@ describe('Notifications', function () {
 		});
 	});
 
+	it('should return empty array for invalid interval', function (done) {
+		user.notifications.getUnreadInterval(uid, '2 aeons', function (err, data) {
+			assert.ifError(err);
+			assert.deepEqual(data, []);
+			done();
+		});
+	});
+
 	it('should return 0 for falsy uid', function (done) {
 		user.notifications.getUnreadCount(0, function (err, count) {
 			assert.ifError(err);
@@ -442,7 +450,7 @@ describe('Notifications', function () {
 					user.notifications.getAll(uid, '', function (err, data) {
 						meta.config.welcomeNotification = '';
 						assert.ifError(err);
-						assert.notEqual(data.indexOf('welcome_' + uid), -1);
+						assert(data.includes('welcome_' + uid));
 						done();
 					});
 				}, 1100);

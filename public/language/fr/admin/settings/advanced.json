@@ -1,6 +1,7 @@
 {
 	"maintenance-mode": "Mode maintenance",
 	"maintenance-mode.help": "Quand le forum est en mode maintenance, toutes les requêtes sont redirigées vers une page de garde statique. Les administrateurs sont exemptés de cette redirection et peuvent accéder normalement au site. ",
+	"maintenance-mode.status": "Mode maintenance",
 	"maintenance-mode.message": "Message de maintenance",
 	"headers": "En-têtes",
 	"headers.allow-from": "Définissez ALLOW-FROM pour afficher NodeBB dans un iFrame",
@@ -14,6 +15,7 @@
 	"headers.acah": "\nAccess-Control-Allow-Headers",
 	"hsts": "Strict Transport Security",
 	"hsts.enabled": "Activer HSTS  (recommandé)",
+	"hsts.maxAge": "HSTS Max Age",
 	"hsts.subdomains": "Inclure les sous-domaines dans l'en-tête HSTS",
 	"hsts.preload": "Autoriser le préchargement de l'en-tête HSTS",
 	"hsts.help": "Si activé, un en-tête HSTS sera défini pour ce site. Vous pouvez choisir d'inclure des sous-domaines et des indicateurs de préchargement dans votre en-tête. En cas de doute, ne cochez pas l'option. <a href=\"%1\">Plus d'informations<i class=\"fa fa-external-link\"></i></a>",

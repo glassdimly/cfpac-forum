@@ -124,6 +124,14 @@ describe('socket.io', function () {
 		});
 	});
 
+	it('should get more unread topics', function (done) {
+		io.emit('topics.loadMoreSortedTopics', { after: 0, count: 10, direction: 1, sort: 'unread' }, function (err, result) {
+			assert.ifError(err);
+			assert(Array.isArray(result.topics));
+			done();
+		});
+	});
+
 	it('should ban a user', function (done) {
 		var socketUser = require('../src/socket.io/user');
 		socketUser.banUsers({ uid: adminUid }, { uids: [regularUid], reason: 'spammer' }, function (err) {
@@ -182,7 +190,7 @@ describe('socket.io', function () {
 		});
 	});
 
-	describe('create/delete', function () {
+	describe('user create/delete', function () {
 		var uid;
 		it('should create a user', function (done) {
 			socketAdmin.user.createUser({ uid: adminUid }, { username: 'foo1' }, function (err, _uid) {
@@ -584,7 +592,7 @@ describe('socket.io', function () {
 	it('should delete a single event', function (done) {
 		db.getSortedSetRevRange('events:time', 0, 0, function (err, eids) {
 			assert.ifError(err);
-			socketAdmin.deleteEvents({ uid: adminUid }, eids, function (err) {
+			events.deleteEvents(eids, function (err) {
 				assert.ifError(err);
 				db.isSortedSetMembers('events:time', eids, function (err, isMembers) {
 					assert.ifError(err);
@@ -596,7 +604,7 @@ describe('socket.io', function () {
 	});
 
 	it('should delete all events', function (done) {
-		socketAdmin.deleteAllEvents({ uid: adminUid }, {}, function (err) {
+		events.deleteAll(function (err) {
 			assert.ifError(err);
 			db.sortedSetCard('events:time', function (err, count) {
 				assert.ifError(err);

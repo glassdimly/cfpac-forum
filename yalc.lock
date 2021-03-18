@@ -1,0 +1,9 @@
+{
+  "version": "v1",
+  "packages": {
+    "nodebb-theme-persona-cfpac": {
+      "signature": "1052bc468eb0653fd01511200b8eb7b0",
+      "file": true
+    }
+  }
+}

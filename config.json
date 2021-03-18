@@ -1,0 +1,12 @@
+{
+    "url": "https://covid.chicagofoodpolicy.com",
+    "secret": "8960838e-133a-404c-8dc5-5614881b4512",
+    "database": "mongo",
+    "mongo": {
+        "host": "cfpac.9yaoc.mongodb.net",
+        "username": "cfpac_prod",
+        "password": "ZkmsdlfjlmZSlIOhgoA8030sojklNlkmNnnNnAqsiqwj",
+        "database": "heroku_x17wk8wm",
+        "uri": ""
+    }
+}

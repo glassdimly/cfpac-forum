@@ -1,8 +1,9 @@
 {
 	"maintenance-mode": "Tryb konserwacji",
 	"maintenance-mode.help": "Kiedy forum jest w trybie konserwacji, wszystkie żądania będą przekierowane do statycznej strony oczekiwania. Administratorzy nie są objęci tym przekierowaniem i mogą normalnie korzystać ze strony.",
+	"maintenance-mode.status": "Kod stanu trybu konserwacji",
 	"maintenance-mode.message": "Komunikat na ekranie konserwacji",
-	"headers": "Nagłówek",
+	"headers": "Nagłówki",
 	"headers.allow-from": "Ustaw ALLOW-FROM, aby umieścić NodeBB w ramce iFrame",
 	"headers.powered-by": "Dopasuj nagłówek \"Powered By\" wysyłany przez NodeBB",
 	"headers.acao": "Kontrola-Dostępu-Zezwól-Żródło",
@@ -14,6 +15,7 @@
 	"headers.acah": "Kontrola-Dostępu-Zezwól-Nagłówki",
 	"hsts": "Strict Transport Security",
 	"hsts.enabled": "Włączony HSTS (zalecane)",
+	"hsts.maxAge": "HSTS Max Age",
 	"hsts.subdomains": "Uwzględnij subdomeny w nagłówku HSTS",
 	"hsts.preload": "Zezwól na wstępne ładowanie nagłówka HSTS",
 	"hsts.help": "Jeśli ta opcja jest włączona, dla tej witryny zostanie ustawiony nagłówek HSTS. Możesz zdecydować, czy uwzględnić subdomeny i wstępnie ładować flagi w nagłówku. Jeśli masz wątpliwości, możesz zostawić te pola niezaznaczone. <a href=\"%1\">Więcej informacji<i class=\"fa fa-external-link\"></i></a>",

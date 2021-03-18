@@ -361,7 +361,7 @@
 
 			var nodes = descendantTextNodes(element);
 			var text = nodes.map(function (node) {
-				return node.nodeValue;
+				return utils.escapeHTML(node.nodeValue);
 			}).join('  ||  ');
 
 			var attrNodes = attributes.reduce(function (prev, attr) {
@@ -541,7 +541,10 @@
 			}
 
 			if (!(typeof text === 'string' || text instanceof String) || text === '') {
-				return cb('');
+				if (cb) {
+					return setTimeout(cb, 0, '');
+				}
+				return '';
 			}
 
 			return Translator.create(lang).translate(text).then(function (output) {
@@ -579,6 +582,7 @@
 		},
 
 		toggleTimeagoShorthand: function toggleTimeagoShorthand(callback) {
+			/* eslint "prefer-object-spread": "off" */
 			function toggle() {
 				var tmp = assign({}, jQuery.timeago.settings.strings);
 				jQuery.timeago.settings.strings = assign({}, adaptor.timeagoShort);
@@ -610,9 +614,6 @@
 			delete adaptor.timeagoShort;
 
 			var languageCode = utils.userLangToTimeagoCode(config.userLang);
-			if (!config.timeagoCodes.includes(languageCode + '-short')) {
-				languageCode = 'en';
-			}
 			jQuery.getScript(config.relative_path + '/assets/vendor/jquery/timeago/locales/jquery.timeago.' + languageCode + '.js').done(callback);
 		},
 

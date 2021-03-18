@@ -22,7 +22,7 @@
 						{groups.displayName}
 					</td>
 					<td>
-						<span class="label label-default" style="background-color: {groups.labelColor};"><!-- IF groups.icon --><i class="fa {groups.icon}"></i> <!-- ENDIF groups.icon -->{groups.userTitle}</span>
+						<span class="label label-default" style="color:{groups.textColor}; background-color: {groups.labelColor};"><!-- IF groups.icon --><i class="fa {groups.icon}"></i> <!-- ENDIF groups.icon -->{groups.userTitle}</span>
 					</td>
 					<td>
 						<!-- IF groups.system -->
@@ -54,6 +54,11 @@
 				</tr>
 				<!-- END groups -->
 			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="6"><br /><br /></td>
+				</tr>
+			</tfoot>
 		</table>
 
 		<!-- IMPORT partials/paginator.tpl -->
@@ -77,6 +82,19 @@
 							<label for="create-group-desc">[[admin/manage/groups:description]]</label>
 							<input type="text" class="form-control" id="create-group-desc" placeholder="[[admin/manage/groups:description-placeholder]]" />
 						</div>
+						<div class="form-group">
+							<label>
+								<input id="create-group-private" name="private" type="checkbox" checked>
+								<strong>[[admin/manage/groups:private]]</strong>
+							</label>
+						</div>
+						<div class="form-group">
+							<label>
+								<input id="create-group-hidden" name="hidden" type="checkbox">
+								<strong>[[admin/manage/groups:hidden]]</strong>
+							</label>
+						</div>
+
 					</form>
 				</div>
 				<div class="modal-footer">

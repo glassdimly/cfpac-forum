@@ -113,6 +113,19 @@ describe('Messaging Library', function () {
 			});
 		});
 
+		it('should send a user-join system message when a chat room is created', (done) => {
+			socketModules.chats.getMessages({ uid: fooUid }, { uid: fooUid, roomId: roomId, start: 0 }, function (err, messages) {
+				assert.ifError(err);
+				assert.equal(messages.length, 2);
+				assert.strictEqual(messages[0].system, true);
+				assert.strictEqual(messages[0].content, 'user-join');
+				socketModules.chats.edit({ uid: fooUid }, { roomId: roomId, mid: messages[0].messageId, message: 'test' }, function (err) {
+					assert.equal(err.message, '[[error:cant-edit-chat-message]]');
+					done();
+				});
+			});
+		});
+
 		it('should fail to add user to room with invalid data', function (done) {
 			socketModules.chats.addUserToRoom({ uid: fooUid }, null, function (err) {
 				assert.equal(err.message, '[[error:invalid-data]]');
@@ -135,6 +148,19 @@ describe('Messaging Library', function () {
 					done();
 				});
 			});
+		});
+
+		it('should get users in room', async function () {
+			const data = await socketModules.chats.getUsersInRoom({ uid: fooUid }, { roomId: roomId });
+			assert(Array.isArray(data) && data.length === 3);
+		});
+
+		it('should throw error if user is not in room', async function () {
+			try {
+				const data = await socketModules.chats.getUsersInRoom({ uid: 123123123 }, { roomId: roomId });
+			} catch (err) {
+				assert.equal(err.message, '[[error:no-privileges]]');
+			}
 		});
 
 		it('should fail to add users to room if max is reached', function (done) {
@@ -183,6 +209,26 @@ describe('Messaging Library', function () {
 					});
 				});
 			});
+		});
+
+		it('should send a user-leave system message when a user leaves the chat room', (done) => {
+			socketModules.chats.getMessages({ uid: fooUid }, { uid: fooUid, roomId: roomId, start: 0 }, function (err, messages) {
+				assert.ifError(err);
+				assert.equal(messages.length, 4);
+				const message = messages.pop();
+				assert.strictEqual(message.system, true);
+				assert.strictEqual(message.content, 'user-leave');
+				done();
+			});
+		});
+
+		it('should send not a user-leave system message when a user tries to leave a room they are not in', async () => {
+			await socketModules.chats.leave({ uid: bazUid }, roomId);
+			const messages = await socketModules.chats.getMessages({ uid: fooUid }, { uid: fooUid, roomId: roomId, start: 0 });
+			assert.equal(messages.length, 4);
+			const message = messages.pop();
+			assert.strictEqual(message.system, true);
+			assert.strictEqual(message.content, 'user-leave');
 		});
 
 		it('should change owner when owner leaves room', function (done) {
@@ -330,7 +376,8 @@ describe('Messaging Library', function () {
 					myRoomId = _roomId;
 					assert.ifError(err);
 					assert(myRoomId);
-					socketModules.chats.getRaw({ uid: bazUid }, { mid: 1 }, function (err) {
+					socketModules.chats.getRaw({ uid: bazUid }, { mid: 200 }, function (err) {
+						assert(err);
 						assert.equal(err.message, '[[error:not-allowed]]');
 						socketModules.chats.send({ uid: bazUid }, { roomId: myRoomId, message: 'admin will see this' }, function (err, message) {
 							assert.ifError(err);
@@ -360,7 +407,7 @@ describe('Messaging Library', function () {
 							var notification = data.unread[0];
 							assert.equal(notification.bodyShort, '[[notifications:new_message_from, foo]]');
 							assert.equal(notification.nid, 'chat_' + fooUid + '_' + roomId);
-							assert.equal(notification.path, '/chats/' + roomId);
+							assert.equal(notification.path, nconf.get('relative_path') + '/chats/' + roomId);
 							done();
 						});
 					}, 1500);
@@ -392,8 +439,8 @@ describe('Messaging Library', function () {
 			}, function (err, messages) {
 				assert.ifError(err);
 				assert(Array.isArray(messages));
-				assert.equal(messages[0].roomId, roomId);
-				assert.equal(messages[0].fromuid, fooUid);
+				assert.equal(messages[4].roomId, roomId);
+				assert.equal(messages[4].fromuid, fooUid);
 				done();
 			});
 		});
@@ -445,6 +492,16 @@ describe('Messaging Library', function () {
 		it('should rename room', function (done) {
 			socketModules.chats.renameRoom({ uid: fooUid }, { roomId: roomId, newName: 'new room name' }, function (err) {
 				assert.ifError(err);
+				done();
+			});
+		});
+
+		it('should send a room-rename system message when a room is renamed', (done) => {
+			socketModules.chats.getMessages({ uid: fooUid }, { uid: fooUid, roomId: roomId, start: 0 }, function (err, messages) {
+				assert.ifError(err);
+				const message = messages.pop();
+				assert.strictEqual(message.system, true);
+				assert.strictEqual(message.content, 'room-rename, new room name');
 				done();
 			});
 		});
@@ -562,14 +619,14 @@ describe('Messaging Library', function () {
 		});
 
 		it('should fail to edit message if new content is empty string', function (done) {
-			socketModules.chats.edit({ uid: fooUid }, { mid: 5, roomId: roomId, message: ' ' }, function (err) {
+			socketModules.chats.edit({ uid: fooUid }, { mid: mid, roomId: roomId, message: ' ' }, function (err) {
 				assert.equal(err.message, '[[error:invalid-chat-message]]');
 				done();
 			});
 		});
 
 		it('should fail to edit message if not own message', function (done) {
-			socketModules.chats.edit({ uid: herpUid }, { mid: 5, roomId: roomId, message: 'message edited' }, function (err) {
+			socketModules.chats.edit({ uid: herpUid }, { mid: mid, roomId: roomId, message: 'message edited' }, function (err) {
 				assert.equal(err.message, '[[error:cant-edit-chat-message]]');
 				done();
 			});
@@ -635,14 +692,9 @@ describe('Messaging Library', function () {
 		it('should not show deleted message to other users', function (done) {
 			socketModules.chats.getMessages({ uid: herpUid }, { uid: herpUid, roomId: roomId, start: 0 }, function (err, messages) {
 				assert.ifError(err);
-
-				// Reduce messages to their mids
-				var mids = messages.reduce(function (mids, cur) {
-					mids.push(cur.messageId);
-					return mids;
-				}, []);
-
-				assert(!mids.includes(mid));
+				messages.forEach(function (msg) {
+					assert(!msg.deleted || msg.content === '[[modules:chat.message-deleted]]', msg.content);
+				});
 				done();
 			});
 		});

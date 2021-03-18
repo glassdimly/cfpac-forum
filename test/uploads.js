@@ -48,9 +48,12 @@ describe('Upload Controllers', function () {
 			cid = results.category.cid;
 
 			topics.post({ uid: adminUid, title: 'test topic title', content: 'test topic content', cid: results.category.cid }, function (err, result) {
+				if (err) {
+					return done(err);
+				}
 				tid = result.topicData.tid;
 				pid = result.postData.pid;
-				done(err);
+				groups.join('administrators', adminUid, done);
 			});
 		});
 	});
@@ -104,6 +107,20 @@ describe('Upload Controllers', function () {
 						done();
 					});
 				});
+			});
+		});
+
+		it('should not allow deleting if path is not correct', function (done) {
+			socketUser.deleteUpload({ uid: adminUid }, { uid: regularUid, name: '../../bkconfig.json' }, function (err) {
+				assert.equal(err.message, '[[error:invalid-path]]');
+				done();
+			});
+		});
+
+		it('should not allow deleting if path is not correct', function (done) {
+			socketUser.deleteUpload({ uid: adminUid }, { uid: regularUid, name: '/files/../../bkconfig.json' }, function (err) {
+				assert.equal(err.message, '[[error:invalid-path]]');
+				done();
 			});
 		});
 
@@ -164,6 +181,13 @@ describe('Upload Controllers', function () {
 		});
 
 		it('should fail if file is not an image', function (done) {
+			image.isFileTypeAllowed(path.join(__dirname, '../test/files/notanimage.png'), function (err) {
+				assert.equal(err.message, 'Input file contains unsupported image format');
+				done();
+			});
+		});
+
+		it('should fail if file is not an image', function (done) {
 			image.size(path.join(__dirname, '../test/files/notanimage.png'), function (err) {
 				assert.equal(err.message, 'Input file contains unsupported image format');
 				done();
@@ -215,8 +239,22 @@ describe('Upload Controllers', function () {
 			});
 		});
 
+		it('should not allow svg uploads', function (done) {
+			socketUser.updateCover({ uid: 1 }, { uid: 1, imageData: 'data:image/svg;base64,PHN2Zy9vbmxvYWQ9YWxlcnQoMik+' }, function (err) {
+				assert.equal(err.message, '[[error:invalid-image]]');
+				done();
+			});
+		});
+
 		it('should not allow non image uploads', function (done) {
 			socketUser.uploadCroppedPicture({ uid: 1 }, { uid: 1, imageData: 'data:text/html;base64,PHN2Zy9vbmxvYWQ9YWxlcnQoMik+' }, function (err) {
+				assert.equal(err.message, '[[error:invalid-image]]');
+				done();
+			});
+		});
+
+		it('should not allow svg uploads', function (done) {
+			socketUser.uploadCroppedPicture({ uid: 1 }, { uid: 1, imageData: 'data:image/svg;base64,PHN2Zy9vbmxvYWQ9YWxlcnQoMik+' }, function (err) {
 				assert.equal(err.message, '[[error:invalid-image]]');
 				done();
 			});
@@ -267,7 +305,7 @@ describe('Upload Controllers', function () {
 				assert.ifError(err);
 				jar = _jar;
 				csrf_token = _csrf_token;
-				groups.join('administrators', adminUid, done);
+				done();
 			});
 		});
 

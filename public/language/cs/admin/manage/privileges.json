@@ -1,7 +1,8 @@
 {
 	"global": "Všeobecné",
 	"global.no-users": "Žádné všeobecné uživatelské nastavení.",
-
+	"group-privileges": "Oprávnění skupiny",
+	"user-privileges": "Oprávnění uživatele",
 	"chat": "Konverzace",
 	"upload-images": "Nahrát obrázky",
 	"upload-files": "Náhrát soubory",
@@ -10,12 +11,12 @@
 	"search-content": "Hledat obsah",
 	"search-users": "Hledat uživatele",
 	"search-tags": "Hledat označení",
-	"view-users": "View Users",
-	"view-tags": "View Tags",
-	"view-groups": "View Groups",
+	"view-users": "Zobrazit uživatele",
+	"view-tags": "Zobrazit značky",
+	"view-groups": "Zobrazit skupiny",
 	"allow-local-login": "Místní přihlášení",
-	"allow-group-creation": "Group Create",
-
+	"allow-group-creation": "Vytvořit skupinu",
+	"view-users-info": "Zobrazit informace o uživateli",
 	"find-category": "Hledat kategorii",
 	"access-category": "Přístup ke kategorii",
 	"access-topics": "Přístup k tématům",

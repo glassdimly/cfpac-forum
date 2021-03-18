@@ -1,12 +1,13 @@
 'use strict';
 
-var async = require('async');
-var winston = require('winston');
-var nconf = require('nconf');
-var _ = require('lodash');
+const os = require('os');
+const async = require('async');
+const winston = require('winston');
+const nconf = require('nconf');
+const _ = require('lodash');
 
-var cacheBuster = require('./cacheBuster');
-var meta;
+const cacheBuster = require('./cacheBuster');
+let meta;
 
 function step(target, callback) {
 	var startTime = Date.now();
@@ -100,7 +101,9 @@ function beforeBuild(targets, callback) {
 	process.stdout.write('  started'.green + '\n'.reset);
 
 	async.series([
-		db.init,
+		function (next) {
+			db.init(next);
+		},
 		function (next) {
 			meta = require('../meta');
 			meta.themes.setupPaths(next);
@@ -134,7 +137,7 @@ function buildTargets(targets, parallel, callback) {
 	}, callback);
 }
 
-function build(targets, options, callback) {
+exports.build = function (targets, options, callback) {
 	if (!callback && typeof options === 'function') {
 		callback = options;
 		options = {};
@@ -148,7 +151,14 @@ function build(targets, options, callback) {
 		targets = targets.split(',');
 	}
 
-	var parallel = !nconf.get('series') && !options.series;
+	let series = nconf.get('series') || options.series;
+	if (series === undefined) {
+		// Detect # of CPUs and select strategy as appropriate
+		winston.verbose('[build] Querying CPU core count for build strategy');
+		const cpus = os.cpus();
+		series = cpus.length < 4;
+		winston.verbose('[build] System returned ' + cpus.length + ' cores, opting for ' + (series ? 'series' : 'parallel') + ' build strategy');
+	}
 
 	targets = targets
 		// get full target name
@@ -178,17 +188,6 @@ function build(targets, options, callback) {
 
 	winston.verbose('[build] building the following targets: ' + targets.join(', '));
 
-	if (typeof callback !== 'function') {
-		callback = function (err) {
-			if (err) {
-				winston.error(err);
-				process.exit(1);
-			} else {
-				process.exit(0);
-			}
-		};
-	}
-
 	if (!targets) {
 		winston.info('[build] No valid targets supplied. Aborting.');
 		callback();
@@ -204,14 +203,14 @@ function build(targets, options, callback) {
 				require('./minifier').maxThreads = threads - 1;
 			}
 
-			if (parallel) {
+			if (!series) {
 				winston.info('[build] Building in parallel mode');
 			} else {
 				winston.info('[build] Building in series mode');
 			}
 
 			startTime = Date.now();
-			buildTargets(targets, parallel, next);
+			buildTargets(targets, !series, next);
 		},
 		function (next) {
 			totalTime = (Date.now() - startTime) / 1000;
@@ -226,10 +225,10 @@ function build(targets, options, callback) {
 		winston.info('[build] Asset compilation successful. Completed in ' + totalTime + 'sec.');
 		callback();
 	});
-}
-
-exports.build = build;
+};
 
 exports.buildAll = function (callback) {
-	build(allTargets, callback);
+	exports.build(allTargets, callback);
 };
+
+require('../promisify')(exports);

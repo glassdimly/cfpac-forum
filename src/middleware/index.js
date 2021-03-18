@@ -31,7 +31,13 @@ middleware.regexes = {
 	timestampedUpload: /^\d+-.+$/,
 };
 
-middleware.applyCSRF = csrf();
+middleware.applyCSRF = csrf({
+	cookie: nconf.get('url_parsed').protocol === 'https:' ? {
+		secure: true,
+		sameSite: 'Strict',
+		httpOnly: true,
+	} : true,
+});
 
 middleware.ensureLoggedIn = ensureLoggedIn.ensureLoggedIn(nconf.get('relative_path') + '/login');
 
@@ -60,11 +66,14 @@ middleware.pageView = function pageView(req, res, next) {
 	plugins.fireHook('action:middleware.pageView', { req: req });
 
 	if (req.loggedIn) {
-		user.updateLastOnlineTime(req.uid);
 		if (req.path.startsWith('/api/users') || req.path.startsWith('/users')) {
-			user.updateOnlineUsers(req.uid, next);
+			async.parallel([
+				async.apply(user.updateOnlineUsers, req.uid),
+				async.apply(user.updateLastOnlineTime, req.uid),
+			], next);
 		} else {
 			user.updateOnlineUsers(req.uid);
+			user.updateLastOnlineTime(req.uid);
 			setImmediate(next);
 		}
 	} else {

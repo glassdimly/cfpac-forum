@@ -34,6 +34,7 @@
 			<li><a href="{relative_path}/admin/manage/post-queue">[[admin/menu:manage/post-queue]]</a></li>
 			<li><a href="{relative_path}/admin/manage/ip-blacklist">[[admin/menu:manage/ip-blacklist]]</a></li>
 			<li><a href="{relative_path}/admin/manage/uploads">[[admin/menu:manage/uploads]]</a></li>
+			<li><a href="{relative_path}/admin/manage/digest">[[admin/menu:manage/digest]]</a></li>
 		</ul>
 	</section>
 
@@ -77,19 +78,6 @@
 		</ul>
 	</section>
 
-	<!-- IF authentication.length -->
-	<section class="menu-section">
-		<h3 class="menu-section-title">[[admin/menu:section-social-auth]]</h3>
-		<ul class="menu-section-list">
-			<!-- BEGIN authentication -->
-			<li>
-				<a href="{relative_path}/admin{authentication.route}">{authentication.name}</a>
-			</li>
-			<!-- END authentication -->
-		</ul>
-	</section>
-	<!-- ENDIF authentication.length -->
-
 	<!-- IF plugins.length -->
 	<section class="menu-section">
 		<h3 class="menu-section-title">[[admin/menu:section-plugins]]</h3>
@@ -102,6 +90,19 @@
 		</ul>
 	</section>
 	<!-- ENDIF plugins.length -->
+
+	<!-- IF authentication.length -->
+	<section class="menu-section">
+		<h3 class="menu-section-title">[[admin/menu:section-social-auth]]</h3>
+		<ul class="menu-section-list">
+			<!-- BEGIN authentication -->
+			<li>
+				<a href="{relative_path}/admin{authentication.route}">{authentication.name}</a>
+			</li>
+			<!-- END authentication -->
+		</ul>
+	</section>
+	<!-- ENDIF authentication.length -->
 
 	<section class="menu-section">
 		<h3 class="menu-section-title">[[admin/menu:section-advanced]]</h3>
@@ -195,6 +196,7 @@
 					<li><a href="{relative_path}/admin/manage/post-queue">[[admin/menu:manage/post-queue]]</a></li>
 					<li><a href="{relative_path}/admin/manage/ip-blacklist">[[admin/menu:manage/ip-blacklist]]</a></li>
 					<li><a href="{relative_path}/admin/manage/uploads">[[admin/menu:manage/uploads]]</a></li>
+					<li><a href="{relative_path}/admin/manage/digest">[[admin/menu:manage/digest]]</a></li>
 				</ul>
 			</li>
 			<li class="dropdown menu-item">
@@ -234,27 +236,28 @@
 					<li><a href="{relative_path}/admin/extend/rewards">[[admin/menu:extend/rewards]]</a></li>
 				</ul>
 			</li>
-			<!-- IF authentication.length -->
-			<li class="dropdown menu-item">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">[[admin/menu:section-social-auth]]</a>
-				<ul class="dropdown-menu" role="menu">
-					<!-- BEGIN authentication -->
-					<li>
-						<a href="{relative_path}/admin{authentication.route}">{authentication.name}</a>
-					</li>
-					<!-- END authentication -->
-				</ul>
-			</li>
-			<!-- ENDIF authentication.length -->
+
 			<!-- IF plugins.length -->
 			<li class="dropdown menu-item">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">[[admin/menu:section-plugins]]</a>
 				<ul class="dropdown-menu" role="menu">
+					<li class="dropdown-header">[[admin/menu:section-plugins]]</li>
 					<!-- BEGIN plugins -->
 					<li>
 						<a href="{relative_path}/admin{plugins.route}">{plugins.name}</a>
 					</li>
 					<!-- END plugins -->
+					<!-- IF authentication.length -->
+					<li class="divider"></li>
+					{{{if authentication.length}}}
+					<li class="dropdown-header">[[admin/menu:section-social-auth]]</li>
+					{{{each authentication}}}
+					<li>
+						<a href="{relative_path}/admin{authentication.route}">{authentication.name}</a>
+					</li>
+					{{{end}}}
+					{{{end}}}
+					<!-- ENDIF authentication.length -->
 					<li class="divider"></li>
 					<li data-link="1">
 						<a href="{relative_path}/admin/extend/plugins">[[admin/menu:extend/plugins.install]]</a>

@@ -1,3 +1,4 @@
+dist/
 yarn.lock
 npm-debug.log
 node_modules/
@@ -66,3 +67,16 @@ test/files/normalise.jpg.png
 test/files/normalise-resized.jpg
 package-lock.json
 /package.json
+
+# ignore some scripts. @TODO move bash vars into .env
+scripts/backup.sh
+scripts/import-fresh-from-remote.sh
+
+# ignore backups dir used by scripts
+backups-fresh/
+
+# ignore .env
+.env
+
+# local config
+config-loc.json

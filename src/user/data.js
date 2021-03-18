@@ -1,29 +1,28 @@
 'use strict';
 
-var async = require('async');
-var validator = require('validator');
-var nconf = require('nconf');
-var _ = require('lodash');
+const validator = require('validator');
+const nconf = require('nconf');
+const _ = require('lodash');
 
-var db = require('../database');
-var meta = require('../meta');
-var plugins = require('../plugins');
-var utils = require('../utils');
+const db = require('../database');
+const meta = require('../meta');
+const plugins = require('../plugins');
+const utils = require('../utils');
 
 const intFields = [
 	'uid', 'postcount', 'topiccount', 'reputation', 'profileviews',
 	'banned', 'banned:expire', 'email:confirmed', 'joindate', 'lastonline', 'lastqueuetime',
-	'lastposttime', 'followingCount', 'followerCount',
+	'lastposttime', 'followingCount', 'followerCount', 'passwordExpiry',
 ];
 
 module.exports = function (User) {
-	var iconBackgrounds = [
+	const iconBackgrounds = [
 		'#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3',
 		'#009688', '#1b5e20', '#33691e', '#827717', '#e65100', '#ff5722',
 		'#795548', '#607d8b',
 	];
 
-	var fieldWhitelist = [
+	const fieldWhitelist = [
 		'uid', 'username', 'userslug', 'email', 'email:confirmed', 'joindate',
 		'lastonline', 'picture', 'fullname', 'location', 'birthday', 'website',
 		'aboutme', 'signature', 'uploadedpicture', 'profileviews', 'reputation',
@@ -46,14 +45,33 @@ module.exports = function (User) {
 		'email:confirmed': 0,
 	};
 
-	User.getUsersFields = function (uids, fields, callback) {
+	User.getUsersFields = async function (uids, fields) {
 		if (!Array.isArray(uids) || !uids.length) {
-			return setImmediate(callback, null, []);
+			return [];
 		}
 
 		uids = uids.map(uid => (isNaN(uid) ? 0 : parseInt(uid, 10)));
 
-		var fieldsToRemove = [];
+		const fieldsToRemove = [];
+		ensureRequiredFields(fields, fieldsToRemove);
+
+		const uniqueUids = _.uniq(uids).filter(uid => uid > 0);
+
+		const results = await plugins.fireHook('filter:user.whitelistFields', { uids: uids, whitelist: fieldWhitelist.slice() });
+		if (!fields.length) {
+			fields = results.whitelist;
+		} else {
+			// Never allow password retrieval via this method
+			fields = fields.filter(value => value !== 'password');
+		}
+
+		let users = await db.getObjectsFields(uniqueUids.map(uid => 'user:' + uid), fields);
+		users = uidsToUsers(uids, uniqueUids, users);
+
+		return await modifyUserData(users, fields, fieldsToRemove);
+	};
+
+	function ensureRequiredFields(fields, fieldsToRemove) {
 		function addField(field) {
 			if (!fields.includes(field)) {
 				fields.push(field);
@@ -76,60 +94,11 @@ module.exports = function (User) {
 		if (fields.includes('banned') && !fields.includes('banned:expire')) {
 			addField('banned:expire');
 		}
-
-		var uniqueUids = _.uniq(uids).filter(uid => uid > 0);
-
-		async.waterfall([
-			function (next) {
-				plugins.fireHook('filter:user.whitelistFields', { uids: uids, whitelist: fieldWhitelist.slice() }, next);
-			},
-			function (results, next) {
-				if (!fields.length) {
-					fields = results.whitelist;
-				} else {
-					// Never allow password retrieval via this method
-					fields = fields.filter(value => value !== 'password');
-				}
-
-				db.getObjectsFields(uidsToUserKeys(uniqueUids), fields, next);
-			},
-			function (users, next) {
-				users = uidsToUsers(uids, uniqueUids, users);
-
-				modifyUserData(users, fields, fieldsToRemove, next);
-			},
-		], callback);
-	};
-
-
-	User.getUserField = function (uid, field, callback) {
-		User.getUserFields(uid, [field], function (err, user) {
-			callback(err, user ? user[field] : null);
-		});
-	};
-
-	User.getUserFields = function (uid, fields, callback) {
-		User.getUsersFields([uid], fields, function (err, users) {
-			callback(err, users ? users[0] : null);
-		});
-	};
-
-	User.getUserData = function (uid, callback) {
-		User.getUsersData([uid], function (err, users) {
-			callback(err, users ? users[0] : null);
-		});
-	};
-
-	User.getUsersData = function (uids, callback) {
-		User.getUsersFields(uids, [], callback);
-	};
+	}
 
 	function uidsToUsers(uids, uniqueUids, usersData) {
-		var uidToUser = uniqueUids.reduce(function (memo, uid, idx) {
-			memo[uid] = usersData[idx];
-			return memo;
-		}, {});
-		var users = uids.map(function (uid) {
+		const uidToUser = _.zipObject(uniqueUids, usersData);
+		const users = uids.map(function (uid) {
 			const returnPayload = uidToUser[uid] || _.clone(User.guestData);
 			if (uid > 0 && !returnPayload.uid) {
 				returnPayload.oldUid = parseInt(uid, 10);
@@ -140,14 +109,29 @@ module.exports = function (User) {
 		return users;
 	}
 
-	function uidsToUserKeys(uids) {
-		return uids.map(uid => 'user:' + uid);
-	}
+	User.getUserField = async function (uid, field) {
+		const user = await User.getUserFields(uid, [field]);
+		return user ? user[field] : null;
+	};
 
-	function modifyUserData(users, requestedFields, fieldsToRemove, callback) {
-		async.map(users, function (user, next) {
+	User.getUserFields = async function (uid, fields) {
+		const users = await User.getUsersFields([uid], fields);
+		return users ? users[0] : null;
+	};
+
+	User.getUserData = async function (uid) {
+		const users = await User.getUsersData([uid]);
+		return users ? users[0] : null;
+	};
+
+	User.getUsersData = async function (uids) {
+		return await User.getUsersFields(uids, []);
+	};
+
+	async function modifyUserData(users, requestedFields, fieldsToRemove) {
+		users = await Promise.all(users.map(async function (user) {
 			if (!user) {
-				return next(null, user);
+				return user;
 			}
 
 			db.parseIntFields(user, intFields, requestedFields);
@@ -184,11 +168,11 @@ module.exports = function (User) {
 				user.picture = User.getDefaultAvatar();
 			}
 
-			if (user.hasOwnProperty('status') && user.lastonline) {
+			if (user.hasOwnProperty('status') && user.hasOwnProperty('lastonline')) {
 				user.status = User.getStatus(user);
 			}
 
-			for (var i = 0; i < fieldsToRemove.length; i += 1) {
+			for (let i = 0; i < fieldsToRemove.length; i += 1) {
 				user[fieldsToRemove[i]] = undefined;
 			}
 
@@ -209,27 +193,19 @@ module.exports = function (User) {
 			}
 
 			if (user.hasOwnProperty('banned') || user.hasOwnProperty('banned:expire')) {
-				var result = User.bans.calcExpiredFromUserData(user);
-				var unban = result.banned && result.banExpired;
+				const result = User.bans.calcExpiredFromUserData(user);
+				const unban = result.banned && result.banExpired;
 				user.banned_until = unban ? 0 : user['banned:expire'];
 				user.banned_until_readable = user.banned_until && !unban ? utils.toISOString(user.banned_until) : 'Not Banned';
 				if (unban) {
-					return User.bans.unban(user.uid, function (err) {
-						if (err) {
-							return next(err);
-						}
-						user.banned = false;
-						next(null, user);
-					});
+					await User.bans.unban(user.uid);
+					user.banned = false;
 				}
 			}
-			next(null, user);
-		}, function (err, users) {
-			if (err) {
-				return callback(err);
-			}
-			plugins.fireHook('filter:users.get', users, callback);
-		});
+			return user;
+		}));
+
+		return await plugins.fireHook('filter:users.get', users);
 	}
 
 	function parseGroupTitle(user) {
@@ -239,6 +215,7 @@ module.exports = function (User) {
 			if (user.groupTitle) {
 				user.groupTitleArray = [user.groupTitle];
 			} else {
+				user.groupTitle = '';
 				user.groupTitleArray = [];
 			}
 		}
@@ -261,46 +238,30 @@ module.exports = function (User) {
 		return meta.config.defaultAvatar.startsWith('http') ? meta.config.defaultAvatar : nconf.get('relative_path') + meta.config.defaultAvatar;
 	};
 
-	User.setUserField = function (uid, field, value, callback) {
-		User.setUserFields(uid, { [field]: value }, callback);
+	User.setUserField = async function (uid, field, value) {
+		await User.setUserFields(uid, { [field]: value });
 	};
 
-	User.setUserFields = function (uid, data, callback) {
-		callback = callback || function () {};
-		async.waterfall([
-			function (next) {
-				db.setObject('user:' + uid, data, next);
-			},
-			function (next) {
-				for (var field in data) {
-					if (data.hasOwnProperty(field)) {
-						plugins.fireHook('action:user.set', { uid: uid, field: field, value: data[field], type: 'set' });
-					}
-				}
-				next();
-			},
-		], callback);
+	User.setUserFields = async function (uid, data) {
+		await db.setObject('user:' + uid, data);
+		for (const field in data) {
+			if (data.hasOwnProperty(field)) {
+				plugins.fireHook('action:user.set', { uid: uid, field: field, value: data[field], type: 'set' });
+			}
+		}
 	};
 
-	User.incrementUserFieldBy = function (uid, field, value, callback) {
-		incrDecrUserFieldBy(uid, field, value, 'increment', callback);
+	User.incrementUserFieldBy = async function (uid, field, value) {
+		return await incrDecrUserFieldBy(uid, field, value, 'increment');
 	};
 
-	User.decrementUserFieldBy = function (uid, field, value, callback) {
-		incrDecrUserFieldBy(uid, field, -value, 'decrement', callback);
+	User.decrementUserFieldBy = async function (uid, field, value) {
+		return await incrDecrUserFieldBy(uid, field, -value, 'decrement');
 	};
 
-	function incrDecrUserFieldBy(uid, field, value, type, callback) {
-		callback = callback || function () {};
-		async.waterfall([
-			function (next) {
-				db.incrObjectFieldBy('user:' + uid, field, value, next);
-			},
-			function (value, next) {
-				plugins.fireHook('action:user.set', { uid: uid, field: field, value: value, type: type });
-
-				next(null, value);
-			},
-		], callback);
+	async function incrDecrUserFieldBy(uid, field, value, type) {
+		const newValue = await db.incrObjectFieldBy('user:' + uid, field, value);
+		plugins.fireHook('action:user.set', { uid: uid, field: field, value: newValue, type: type });
+		return newValue;
 	}
 };

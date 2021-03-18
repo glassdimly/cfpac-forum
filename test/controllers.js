@@ -103,14 +103,14 @@ describe('Controllers', function () {
 		var name = 'custom.tpl';
 		var tplPath = path.join(nconf.get('views_dir'), name);
 
-		before(function (done) {
+		before(async () => {
 			plugins.registerHook('myTestPlugin', {
 				hook: 'action:homepage.get:custom',
 				method: hookMethod,
 			});
 
 			fs.writeFileSync(tplPath, message);
-			meta.templates.compileTemplate(name, message, done);
+			await meta.templates.compileTemplate(name, message);
 		});
 
 		it('should load default', function (done) {
@@ -560,6 +560,15 @@ describe('Controllers', function () {
 		});
 	});
 
+	it('should load client.css', function (done) {
+		request(nconf.get('url') + '/assets/client.css', function (err, res, body) {
+			assert.ifError(err);
+			assert.equal(res.statusCode, 200);
+			assert(body);
+			done();
+		});
+	});
+
 	it('should load admin.css', function (done) {
 		request(nconf.get('url') + '/assets/admin.css', function (err, res, body) {
 			assert.ifError(err);
@@ -877,14 +886,11 @@ describe('Controllers', function () {
 						widgets: [
 							{
 								widget: 'html',
-								data: [{
-									widget: 'html',
-									data: {
-										html: 'test',
-										title: '',
-										container: '',
-									},
-								}],
+								data: {
+									html: 'test',
+									title: '',
+									container: '',
+								},
 							},
 						],
 					};
@@ -911,6 +917,7 @@ describe('Controllers', function () {
 				assert.equal(res.statusCode, 200);
 				assert(body.widgets);
 				assert(body.widgets.sidebar);
+				assert.equal(body.widgets.sidebar[0].html, 'test');
 				done();
 			});
 		});
@@ -1293,7 +1300,7 @@ describe('Controllers', function () {
 					assert.equal(notif.bodyShort, notifData.bodyShort);
 					assert.equal(notif.bodyLong, notifData.bodyLong);
 					assert.equal(notif.pid, notifData.pid);
-					assert.equal(notif.path, notifData.path);
+					assert.equal(notif.path, nconf.get('relative_path') + notifData.path);
 					assert.equal(notif.nid, notifData.nid);
 					next();
 				},
@@ -1391,14 +1398,47 @@ describe('Controllers', function () {
 			});
 		});
 
-		it('should increase profile view', function (done) {
+		it('should not increase profile view if you visit your own profile', (done) => {
+			request(nconf.get('url') + '/api/user/foo', { jar: jar }, function (err, res) {
+				assert.ifError(err);
+				assert.equal(res.statusCode, 200);
+				setTimeout(function () {
+					user.getUserField(fooUid, 'profileviews', function (err, viewcount) {
+						assert.ifError(err);
+						assert(viewcount === 0);
+						done();
+					});
+				}, 500);
+			});
+		});
+
+		it('should not increase profile view if a guest visits a profile', (done) => {
 			request(nconf.get('url') + '/api/user/foo', { }, function (err, res) {
 				assert.ifError(err);
 				assert.equal(res.statusCode, 200);
-				user.getUserField(fooUid, 'profileviews', function (err, viewcount) {
+				setTimeout(function () {
+					user.getUserField(fooUid, 'profileviews', function (err, viewcount) {
+						assert.ifError(err);
+						assert(viewcount === 0);
+						done();
+					});
+				}, 500);
+			});
+		});
+
+		it('should increase profile view', function (done) {
+			helpers.loginUser('regularJoe', 'barbar', function (err, jar) {
+				assert.ifError(err);
+				request(nconf.get('url') + '/api/user/foo', { jar: jar }, function (err, res) {
 					assert.ifError(err);
-					assert(viewcount > 0);
-					done();
+					assert.equal(res.statusCode, 200);
+					setTimeout(function () {
+						user.getUserField(fooUid, 'profileviews', function (err, viewcount) {
+							assert.ifError(err);
+							assert(viewcount > 0);
+							done();
+						});
+					}, 500);
 				});
 			});
 		});

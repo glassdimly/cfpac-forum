@@ -15,6 +15,8 @@
 	"delete": "Delete User(s)",
 	"purge": "Delete User(s) and Content",
 	"download-csv": "Download CSV",
+	"manage-groups": "Manage Groups",
+	"add-group": "Add Group",
 	"invite": "Invite",
 	"new": "New User",
 
@@ -27,6 +29,11 @@
 	"pills.flagged": "Most Flagged",
 	"pills.banned": "Banned",
 	"pills.search": "User Search",
+
+	"50-per-page": "50 per page",
+	"100-per-page": "100 per page",
+	"250-per-page": "250 per page",
+	"500-per-page": "500 per page",
 
 	"search.uid": "By User ID",
 	"search.uid-placeholder": "Enter a user ID to search",

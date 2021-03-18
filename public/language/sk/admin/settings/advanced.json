@@ -1,6 +1,7 @@
 {
 	"maintenance-mode": "Režim údržby",
 	"maintenance-mode.help": "Ak je fórum v režime údržby, všetky požiadavky budú presmerované na statickú stránku. Administrátori sú vylúčení z tohto presmerovania a majú prístup na stránku normálne.",
+	"maintenance-mode.status": "Maintenance Mode Status Code",
 	"maintenance-mode.message": "Správa údržby",
 	"headers": "Hlavičky",
 	"headers.allow-from": "Nastavte ALLOW-FROM pro umístění NodeBB do iFrame",
@@ -14,6 +15,7 @@
 	"headers.acah": "Access-Control-Allow-Headers",
 	"hsts": "Prísne zabezpečenie prenosu",
 	"hsts.enabled": "Povoliť HSTS (odporúčané)",
+	"hsts.maxAge": "HSTS Max Age",
 	"hsts.subdomains": "Zahrnúť pod domény v hlavičke HSTS",
 	"hsts.preload": "Povoliť pred načítavanie hlavičky HSTS",
 	"hsts.help": "Ak je povolené, bude nastavená pre tieto stránky hlavička HSTS. V hlavičke si môžete zvoliť aj zahrnutie pod domén a prednastavených príznakov. Ak si nieste istý, nechajte nezaškrtnuté <a href=\"%1\">Viac informácií <i class=\"fa fa-external-link\"></i></a>",

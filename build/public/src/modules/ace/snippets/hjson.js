@@ -1,0 +1,2 @@
+define("ace/snippets/hjson",["require","exports","module"],function(e,o,n){"use strict";o.snippetText=undefined,o.scope="hjson"});(function(){window.require(["ace/snippets/hjson"],function(e){if(typeof module=="object"&&typeof exports=="object"&&module){module.exports=e}})})();
+//# sourceMappingURL=hjson.js.map

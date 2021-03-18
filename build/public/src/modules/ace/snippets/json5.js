@@ -1,0 +1,2 @@
+define("ace/snippets/json5",["require","exports","module"],function(e,o,n){"use strict";o.snippetText=undefined,o.scope="json5"});(function(){window.require(["ace/snippets/json5"],function(e){if(typeof module=="object"&&typeof exports=="object"&&module){module.exports=e}})})();
+//# sourceMappingURL=json5.js.map

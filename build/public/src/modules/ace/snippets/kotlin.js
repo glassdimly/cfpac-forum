@@ -1,0 +1,2 @@
+define("ace/snippets/kotlin",["require","exports","module"],function(e,o,t){"use strict";o.snippetText=undefined,o.scope="kotlin"});(function(){window.require(["ace/snippets/kotlin"],function(e){if(typeof module=="object"&&typeof exports=="object"&&module){module.exports=e}})})();
+//# sourceMappingURL=kotlin.js.map

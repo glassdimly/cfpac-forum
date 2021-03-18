@@ -203,7 +203,6 @@ describe('authentication', function () {
 		loginUser('regular', 'regularpwd', function (err, response, body, jar) {
 			assert.ifError(err);
 			assert(body);
-
 			request({
 				url: nconf.get('url') + '/api/me',
 				json: true,
@@ -396,9 +395,9 @@ describe('authentication', function () {
 	});
 
 	it('should queue user if ip is used before', function (done) {
-		meta.config.registrationType = 'admin-approval-ip';
+		meta.config.registrationApprovalType = 'admin-approval-ip';
 		registerUser('another@user.com', 'anotheruser', 'anotherpwd', function (err, response, body) {
-			meta.config.registrationType = 'normal';
+			meta.config.registrationApprovalType = 'normal';
 			assert.ifError(err);
 			assert.equal(response.statusCode, 200);
 			assert.equal(body.message, '[[register:registration-added-to-queue]]');

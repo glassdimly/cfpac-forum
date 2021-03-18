@@ -1,0 +1,2 @@
+define("ace/snippets/nunjucks",["require","exports","module"],function(e,n,u){"use strict";n.snippetText=undefined,n.scope="nunjucks"});(function(){window.require(["ace/snippets/nunjucks"],function(e){if(typeof module=="object"&&typeof exports=="object"&&module){module.exports=e}})})();
+//# sourceMappingURL=nunjucks.js.map

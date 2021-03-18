@@ -3,13 +3,11 @@
 var nconf = require('nconf');
 var winston = require('winston');
 var path = require('path');
-var async = require('async');
 var express = require('express');
 
 var meta = require('../meta');
 var controllers = require('../controllers');
 var plugins = require('../plugins');
-var user = require('../user');
 
 var accountRoutes = require('./accounts');
 var metaRoutes = require('./meta');
@@ -34,8 +32,10 @@ function mainRoutes(app, middleware, controllers) {
 	setupPageRoute(app, '/reset/:code?', middleware, [middleware.delayLoading], controllers.reset);
 	setupPageRoute(app, '/tos', middleware, [], controllers.termsOfUse);
 
+	setupPageRoute(app, '/email/unsubscribe/:token', middleware, [], controllers.accounts.settings.unsubscribe);
+	app.post('/email/unsubscribe/:token', controllers.accounts.settings.unsubscribePost);
+
 	app.post('/compose', middleware.applyCSRF, controllers.composer.post);
-	app.post('/email/unsubscribe/:token', controllers.accounts.settings.unsubscribe);
 }
 
 function modRoutes(app, middleware, controllers) {
@@ -90,7 +90,7 @@ function groupRoutes(app, middleware, controllers) {
 	setupPageRoute(app, '/groups/:slug/members', middleware, middlewares, controllers.groups.members);
 }
 
-module.exports = function (app, middleware, callback) {
+module.exports = async function (app, middleware) {
 	const router = express.Router();
 	router.render = function () {
 		app.render.apply(app, arguments);
@@ -109,21 +109,14 @@ module.exports = function (app, middleware, callback) {
 	// homepage handled by `action:homepage.get:[route]`
 	setupPageRoute(router, '/', middleware, [], controllers.home.pluginHook);
 
-	async.series([
-		async.apply(plugins.reloadRoutes, router),
-		async.apply(authRoutes.reloadRoutes, router),
-		async.apply(addCoreRoutes, app, router, middleware),
-		async.apply(user.addInterstitials),
-		function (next) {
-			winston.info('Routes added');
-			next();
-		},
-	], function (err) {
-		callback(err);
-	});
+	await plugins.reloadRoutes({ router: router });
+	await authRoutes.reloadRoutes({ router: router });
+	addCoreRoutes(app, router, middleware);
+
+	winston.info('Routes added');
 };
 
-function addCoreRoutes(app, router, middleware, callback) {
+function addCoreRoutes(app, router, middleware) {
 	adminRoutes(router, middleware, controllers);
 	metaRoutes(router, middleware, controllers);
 	apiRoutes(router, middleware, controllers);
@@ -190,5 +183,4 @@ function addCoreRoutes(app, router, middleware, callback) {
 	app.use(controllers['404'].handle404);
 	app.use(controllers.errors.handleURIErrors);
 	app.use(controllers.errors.handleErrors);
-	setImmediate(callback);
 }
