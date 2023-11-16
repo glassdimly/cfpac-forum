@@ -128,7 +128,7 @@
     "sanitize-html": "^1.23.0",
     "semver": "^7.2.2",
     "serve-favicon": "^2.4.5",
-    "sharp": "0.25.1",
+    "sharp": "0.32.6",
     "sitemap": "^6.0.0",
     "socket.io": "2.3.0",
     "socket.io-adapter-cluster": "^1.0.1",
